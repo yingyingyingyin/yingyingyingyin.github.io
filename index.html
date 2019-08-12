@@ -152,14 +152,63 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-css2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="十一-、垂直居中的方法"><a href="#十一-、垂直居中的方法" class="headerlink" title="十一 、垂直居中的方法"></a>十一 、垂直居中的方法</h1><h4 id="1、flex布局"><a href="#1、flex布局" class="headerlink" title="1、flex布局"></a>1、flex布局</h4><p>给父级元素设为<br>display:flex;<br>justify-contnet:center  //设置水片居中<br>align-items:center  //设置垂直居中</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> &lt;div class=&quot;box&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;content&quot;&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">.box &#123;</span><br><span class="line">    background-color: #FF8C00;</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 300px;</span><br><span class="line">    display: flex;//flex布局</span><br><span class="line">    justify-content: center;//使子项目水平居中</span><br><span class="line">    align-items: center;//使子项目垂直居中</span><br><span class="line">&#125;</span><br><span class="line">.content &#123;</span><br><span class="line">    background-color: #F00;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、position加已知宽度"><a href="#2、position加已知宽度" class="headerlink" title="2、position加已知宽度"></a>2、position加已知宽度</h4><p>   父元素设置为：position: relative;<br>子元素设置为：position: absolute;<br>距上50%，据左50%，然后减去元素自身宽度的距离就可以实现<br>   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">   &lt;style&gt;</span><br><span class="line">   .box &#123;</span><br><span class="line">        background-color: #FF8C00;</span><br><span class="line">        width: 300px;</span><br><span class="line">        height: 300px;</span><br><span class="line">        position: relative;---------</span><br><span class="line">    &#125;</span><br><span class="line">    .content &#123;</span><br><span class="line">        background-color: #F00;</span><br><span class="line">        width: 100px;</span><br><span class="line">        height: 100px;</span><br><span class="line">        position: absolute;---------</span><br><span class="line">        left: 50%;----------</span><br><span class="line">        top: 50%;------------</span><br><span class="line">        margin:-50px 0 0 -50px;-----------width的一半 height的一半</span><br><span class="line">     &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"> </span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=&quot;box&quot;&gt;</span><br><span class="line">        &lt;div class=&quot;content&quot;&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3、margin-auto"><a href="#3、margin-auto" class="headerlink" title="3、margin:auto"></a>3、margin:auto</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">   .fa &#123;</span><br><span class="line">     width: 300px;</span><br><span class="line">     height: 300px;</span><br><span class="line">     position: relative;</span><br><span class="line">     border: 1px solid #465468;</span><br><span class="line">&#125;</span><br><span class="line">.SON &#123;</span><br><span class="line">     position: absolute;</span><br><span class="line">     margin: auto;------</span><br><span class="line">     top: 0;-------</span><br><span class="line">     left: 0;-----</span><br><span class="line">     right: 0;----</span><br><span class="line">     bottom: 0;-----</span><br><span class="line">     width:50px;</span><br><span class="line">     height:60px;</span><br><span class="line">     background:red;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   &lt;div class=&quot;fa&quot;&gt;</span><br><span class="line">       &lt;div class=&quot;SON&quot;&gt;&lt;/div&gt;</span><br><span class="line">   &lt;/div&gt;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/11/css2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-css1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#盒模型&amp;边界崩塌&amp;浮动&amp;行与块</p>
-<p>##一、盒模型</p>
-<h5>1.什么是盒模型：</h5>  
+        <h1 id="盒模型-amp-边界崩塌-amp-浮动-amp-行与块"><a href="#盒模型-amp-边界崩塌-amp-浮动-amp-行与块" class="headerlink" title="盒模型&amp;边界崩塌&amp;浮动&amp;行与块"></a>盒模型&amp;边界崩塌&amp;浮动&amp;行与块</h1><h2 id="一、盒模型"><a href="#一、盒模型" class="headerlink" title="一、盒模型"></a>一、盒模型</h2><h5>1.什么是盒模型：</h5>  
 盒模型，顾名思义，就是一个盒子。生活中的盒子，有长宽高，盒子本身也有厚度，可以用来装东西。页面上的盒模型我们可以理解为，从盒子顶部俯视所得的一个平面图，盒子里装的东西，相当于盒模型的内容（content）；东西与盒子之间的空隙，理解为盒模型的内边距（padding）；盒子本身的厚度，就是盒模型的边框（border）；盒子外与其他盒子之间的间隔，就是盒子的外边距（margin）。
 
 <p> <code>元素的外边距（margin）、边框（border）、内边距（padding）、内容（content）就构成了CSS盒模型。</code>     </p>
@@ -259,7 +308,7 @@ CSS3新增了一个属性box-sizing: content-box | border-box | inherit，默认
 <h1 id="五、清除浮动方法"><a href="#五、清除浮动方法" class="headerlink" title="五、清除浮动方法"></a>五、清除浮动方法</h1><p>####1、对父级设置适合CSS高度<br>原理：父级div手动定义height，就解决了父级div无法自动获取到高度的问题。</p>
 <p>优点：简单，代码少，容易掌握</p>
 <p>缺点：只适合高度固定的布局，要给出精确的高度，如果高度和父级div不一样时，会产生问题</p>
-<p>####2、clear:both清除浮动<br>为了统一样式，我们新建一个样式选择器CSS命名为“.clear”，并且对应选择器样式为“clear:both”，然后我们在父级“”结束前加此div引入“class=”clear””样式。这样即可清除浮动。这里强调一点，即在父级元素末尾添加的元素必须是一个块级元素，否则无法撑起父级元素高度。<br>原理：添加一个空div，利用css提高的clear:both清除浮动，让父级div能自动获取到高度</p>
+<h4 id="2、clear-both清除浮动"><a href="#2、clear-both清除浮动" class="headerlink" title="2、clear:both清除浮动"></a>2、clear:both清除浮动</h4><p>为了统一样式，我们新建一个样式选择器CSS命名为“.clear”，并且对应选择器样式为“clear:both”，然后我们在父级“”结束前加此div引入“class=”clear””样式。这样即可清除浮动。这里强调一点，即在父级元素末尾添加的元素必须是一个块级元素，否则无法撑起父级元素高度。<br>原理：添加一个空div，利用css提高的clear:both清除浮动，让父级div能自动获取到高度</p>
 <ul>
 <li><p>优点：通俗易懂，容易掌握</p>
 </li>
@@ -269,20 +318,20 @@ CSS3新增了一个属性box-sizing: content-box | border-box | inherit，默认
 <p>建议：不推荐使用，但此方法是以前主要使用的一种清除浮动方法</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">css:</span><br><span class="line">.divcss5&#123; width:400px;border:1px solid #F00;background:#FF0&#125; </span><br><span class="line">.divcss5-left,.divcss5-right&#123;width:180px;height:100px; </span><br><span class="line">border:1px solid #00F;background:#FFF&#125; </span><br><span class="line">.divcss5-left&#123; float:left&#125; </span><br><span class="line">.divcss5-right&#123; float:right&#125; </span><br><span class="line">.clear&#123; clear:both&#125;</span><br><span class="line"></span><br><span class="line">html:</span><br><span class="line">&lt;div class=&quot;divcss5&quot;&gt; </span><br><span class="line">    &lt;div class=&quot;divcss5-left&quot;&gt;left浮动&lt;/div&gt; </span><br><span class="line">    &lt;div class=&quot;divcss5-right&quot;&gt;right浮动&lt;/div&gt; </span><br><span class="line">    &lt;div class=&quot;clear&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 
-<p>####3、父级div定义 overflow:hidden<br>对父级CSS选择器加overflow:hidden样式，可以清除父级内使用float产生浮动。优点是可以很少CSS代码即可解决浮动产生。<br>原理：必须定义width或zoom:1，同时不能定义height，使用overflow:hidden时，浏览器会自动检查浮动区域的高度</p>
+<h4 id="3、父级div定义-overflow-hidden"><a href="#3、父级div定义-overflow-hidden" class="headerlink" title="3、父级div定义 overflow:hidden"></a>3、父级div定义 overflow:hidden</h4><p>对父级CSS选择器加overflow:hidden样式，可以清除父级内使用float产生浮动。优点是可以很少CSS代码即可解决浮动产生。<br>原理：必须定义width或zoom:1，同时不能定义height，使用overflow:hidden时，浏览器会自动检查浮动区域的高度</p>
 <ul>
 <li>优点：简单，代码少，浏览器支持好</li>
 <li>缺点：不能和position配合使用，因为超出的尺寸的会被隐藏<br>建议：只推荐没有使用position或对overflow:hidden理解比较深的朋友使用</li>
 </ul>
 <p><img src="https://upload-images.jianshu.io/upload_images/4904768-f1e0c682ee2c1cd2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/810" alt></p>
-<p>####4、父级div定义伪类:after和zoom(用于非IE浏览器)<br>原理：IE8以上和非IE浏览器才支持:after，原理和方法1有点类似，zoom(IE转有属性)可解决ie6,ie7浮动问题</p>
+<h4 id="4、父级div定义伪类-after和zoom-用于非IE浏览器"><a href="#4、父级div定义伪类-after和zoom-用于非IE浏览器" class="headerlink" title="4、父级div定义伪类:after和zoom(用于非IE浏览器)"></a>4、父级div定义伪类:after和zoom(用于非IE浏览器)</h4><p>原理：IE8以上和非IE浏览器才支持:after，原理和方法1有点类似，zoom(IE转有属性)可解决ie6,ie7浮动问题</p>
 <ul>
 <li>优点：浏览器支持好，不容易出现怪问题（目前：大型网站都有使用，如：腾迅，网易，新浪等等）。缺点：代码多，要两句代码结合使用，才能让主流浏览器都支持建议：推荐使用，建议定义公共类，以减少CSS代码<br><img src="https://upload-images.jianshu.io/upload_images/4904768-ef8692307ecbdcb9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/777" alt></li>
 <li>display:block 使生成的元素以块级元素显示,占满剩余空间;</li>
 <li>height:0 避免生成内容破坏原有布局的高度。</li>
 <li>visibility:hidden 使生成的内容不可见，并允许可能被生成内容盖住的内容可以进行点击和交互。</li>
 <li>通过 content:”.”生成内容作为最后一个元素，至于content里面是点还是其他都是可以的，例如oocss里面就有经典的 content:”XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX”,有些版本可能content 里面内容为空,不推荐这样做的,firefox直到7.0 content:”” 仍然会产生额外的空隙；</li>
-<li>zoom：1 触发IE hasLayout。通过分析发现，除了clear：both用来清除浮动的，其他代码无非都是为了隐藏掉content生成的内容，这也就是其他版本的闭合浮动为什么会有font-size：0，line-height：0<br>###5、父级div定义overflow:auto<br>原理：必须定义width或zoom:1，同时不能定义height，使用overflow:auto时，浏览器会自动检查浮动区域的高度<br>优点：简单，代码少，浏览器支持好<br>缺点：内部宽高超过父级div时，会出现滚动条。建议：不推荐使用，如果你需要出现滚动条或者确保你的代码不会出现滚动条就使用吧。</li>
+<li>zoom：1 触发IE hasLayout。通过分析发现，除了clear：both用来清除浮动的，其他代码无非都是为了隐藏掉content生成的内容，这也就是其他版本的闭合浮动为什么会有font-size：0，line-height：0<h3 id="5、父级div定义overflow-auto"><a href="#5、父级div定义overflow-auto" class="headerlink" title="5、父级div定义overflow:auto"></a>5、父级div定义overflow:auto</h3>原理：必须定义width或zoom:1，同时不能定义height，使用overflow:auto时，浏览器会自动检查浮动区域的高度<br>优点：简单，代码少，浏览器支持好<br>缺点：内部宽高超过父级div时，会出现滚动条。建议：不推荐使用，如果你需要出现滚动条或者确保你的代码不会出现滚动条就使用吧。</li>
 </ul>
 <p><img src="https://upload-images.jianshu.io/upload_images/4904768-70459c3ce26e6ca9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/803" alt></p>
 <h1 id="六-、行内元素和块元素"><a href="#六-、行内元素和块元素" class="headerlink" title="六 、行内元素和块元素"></a>六 、行内元素和块元素</h1><ul>
@@ -310,20 +359,18 @@ CSS3新增了一个属性box-sizing: content-box | border-box | inherit，默认
 </ul>
 <p>行内块元素包括：img,input </p>
 <p>注意：设置两个并排的div.一个width:20%,一个width:80%.用display:inline-block 让两个div并排，会使右侧的div向下排列</p>
-<p>#七、position定位<br>position属性共有四种不同的定位方法，分别是static、fixed、relative、absolute。</p>
-<p>####position:static<br>   static定位是HTML元素的默认值，即没有定位，元素出现在正常的流中。因此这种定位就不会受到top、bottom、left、right的影响</p>
+<h1 id="七、position定位"><a href="#七、position定位" class="headerlink" title="七、position定位"></a>七、position定位</h1><p>position属性共有四种不同的定位方法，分别是static、fixed、relative、absolute。</p>
+<h4 id="position-static"><a href="#position-static" class="headerlink" title="position:static"></a>position:static</h4><p>   static定位是HTML元素的默认值，即没有定位，元素出现在正常的流中。因此这种定位就不会受到top、bottom、left、right的影响</p>
 <pre><code> &lt;div class=&quot;wrap&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 .wrap{height: 200px;width: 200px;background-color: #ddd;}
 
 .content{height: 80px;width: 80px;background-color: rgb(228,183,41);position: static;top: 20px;left: 20px;}</code></pre><p><img src="https://img-blog.csdn.net/20180424194008635" alt></p>
-<p>####position:fixed</p>
-<p>fixed定位是指元素的位置相对于浏览器窗口是固定位置，即使窗口是滚动的他也不会滚动，而且fixed定位使元素的位置与文档流无关，因此不占据空间，所以会和其他元素发生重叠。</p>
-<p>####position:relative<br> 相对定位元素的定位是相对他自己的正常位置定位。position:relative 对 table-*-group, table-row, table-column, table-cell, table-caption 元素无效。</p>
+<h4 id="position-fixed"><a href="#position-fixed" class="headerlink" title="position:fixed"></a>position:fixed</h4><p>fixed定位是指元素的位置相对于浏览器窗口是固定位置，即使窗口是滚动的他也不会滚动，而且fixed定位使元素的位置与文档流无关，因此不占据空间，所以会和其他元素发生重叠。</p>
+<h4 id="position-relative"><a href="#position-relative" class="headerlink" title="position:relative"></a>position:relative</h4><p> 相对定位元素的定位是相对他自己的正常位置定位。position:relative 对 table-*-group, table-row, table-column, table-cell, table-caption 元素无效。</p>
 <h4 id="position-absolute"><a href="#position-absolute" class="headerlink" title="position:absolute"></a>position:absolute</h4><p> 生成绝对定位的元素，其相对于 static 定位以外的第一个父元素进行定位,会脱离normal flow。如果第一个父元素没有position，就找下一个父元素相对它定位，如果都没有就相对body定位<br> <b>注意：是除了static外</b></p>
-<p>#八、伪类和伪元素</p>
-<h5 id="（一）、伪类和伪元素是什么"><a href="#（一）、伪类和伪元素是什么" class="headerlink" title="（一）、伪类和伪元素是什么"></a>（一）、伪类和伪元素是什么</h5><ul>
+<h1 id="八、伪类和伪元素"><a href="#八、伪类和伪元素" class="headerlink" title="八、伪类和伪元素"></a>八、伪类和伪元素</h1><h5 id="（一）、伪类和伪元素是什么"><a href="#（一）、伪类和伪元素是什么" class="headerlink" title="（一）、伪类和伪元素是什么"></a>（一）、伪类和伪元素是什么</h5><ul>
 <li>伪类：<br>为了通过选择器，格式化DOM树以外的信息(匹配指定状态的元素):visited，:active 。 以及不能被常规CSS选择器获取到的信息(满足一定逻辑条件的DOM树中的元素)，比如:first-child，:first-of-type，：target。</li>
 <li>伪元素：可以创建一些文档语言无法创建的虚拟元素。比如：文档语言没有一种机制可以描述元素内容的第一个字母或第一行，但伪元素可以做到(::first-letter、::first-line)。同时，伪元素还可以创建源文档不存在的内容，比如使用 ::before 或 ::after。</li>
 </ul>
@@ -335,7 +382,7 @@ CSS3新增了一个属性box-sizing: content-box | border-box | inherit，默认
 
 <p><code>::first-letter——向文本的第一个字母添加特殊样式。</code><br><code>::first-line——向文本的首行添加特殊样式。</code><br><code>::before——在元素之前添加内容。</code><br><code>::after——在元素之后添加内容。</code><br><code>::selection     选择指定元素中被用户选中的内容</code></p>
 <h5 id="二-、区别"><a href="#二-、区别" class="headerlink" title="(二) 、区别"></a>(二) 、区别</h5><p>伪类用于当<b>已有元素</b>处于的某个状态时，为其添加对应的样式，这个状态是根据用户行为而动态变化的。比如说，当用户悬停在指定的元素时，我们可以通过:hover来描述这个元素的状态。虽然它和普通的css类相似，<code>可以为已有的元素添加样式，但是它只有处于dom树无法描述的状态下才能为元素添加样式，所以将其称为伪类。</code><br><br><code>伪元素用于创建一些不在文档树中的元素，并为其添加样式</code>。比如说，我们可以通过:before来在一个元素前增加一些文本，并为这些文本添加样式。虽然用户可以看到这些文本，但是这些文本实际上不在文档树中。</p>
-<p>#八、文档流和脱离文档流<br>　文档流是指在网页中将窗体自上而下分成一行行, 并在每行中按从左至右的顺序排放元素,即为文档流.(自己的理解是从头到尾按照文档的顺序，该在什么位置就在什么位置，自上而下，自左到右的顺序),这是普通流的说法。</p>
+<h1 id="八、文档流和脱离文档流"><a href="#八、文档流和脱离文档流" class="headerlink" title="八、文档流和脱离文档流"></a>八、文档流和脱离文档流</h1><p>　文档流是指在网页中将窗体自上而下分成一行行, 并在每行中按从左至右的顺序排放元素,即为文档流.(自己的理解是从头到尾按照文档的顺序，该在什么位置就在什么位置，自上而下，自左到右的顺序),这是普通流的说法。</p>
 <p>　　而很多时候会出现影响普通流而存在，最典型的就是浮动、定位(相对定位和绝对定位)</p>
 <p>　　1.浮动</p>
 <p>　　浮动常用在块级元素上，普通流里的块级元素会独占一行，而应用了float的元素就脱离了文档流，可以多个一排，其作用与display:inline-block相似。由于脱离文档流的元素是不占据空间的，所以添加了CSS浮动的元素会对其周围的其他元素产生或多或少的影响。</p>
@@ -364,8 +411,7 @@ CSS3新增了一个属性box-sizing: content-box | border-box | inherit，默认
 <p>  ul和ol列表缩进问题消除ul、ol等列表的缩进时，样式应写成:{list-style:none;margin:0px;padding:0px;}</p>
 </li>
 </ul>
-<p>####前端兼容性问题七：显示类（display:block,inline）</p>
-<p>1.display:block,inline两个元素</p>
+<h4 id="前端兼容性问题七：显示类（display-block-inline）"><a href="#前端兼容性问题七：显示类（display-block-inline）" class="headerlink" title="前端兼容性问题七：显示类（display:block,inline）"></a>前端兼容性问题七：显示类（display:block,inline）</h4><p>1.display:block,inline两个元素</p>
 <p>display:block; //可以为内嵌元素模拟为块元素</p>
 <p>display:inline; //实现同一行排列的的效果</p>
 <p>display:table; //for FF,模拟table的效果</p>
@@ -375,8 +421,7 @@ CSS3新增了一个属性box-sizing: content-box | border-box | inherit，默认
 
 <p>2.鼠标手指状显示</p>
 <p>全部用标准的写法 cursor: pointer;</p>
-<p>####前端兼容性问题八:背景、图片类</p>
-<ol>
+<h4 id="前端兼容性问题八-背景、图片类"><a href="#前端兼容性问题八-背景、图片类" class="headerlink" title="前端兼容性问题八:背景、图片类"></a>前端兼容性问题八:背景、图片类</h4><ol>
 <li>background显示问题</li>
 </ol>
 <p>全部注意补齐 width，height 属性</p>
@@ -386,13 +431,10 @@ CSS3新增了一个属性box-sizing: content-box | border-box | inherit，默认
 <p>Firefox: opacity:0.6;</p>
 <p>Firefox: -moz-opacity:0.10;</p>
 <p>最好两个都写，并将opacity属性放在下面</p>
-<p>####前端兼容性问题九:min-height最小高度的实现（兼容IE6、IE7、Firefox）</p>
-<p>作用是：当容器的内容较少时，能保持一个最小的高度，以免破坏了布局或UI设计效果。而当容器内的内容增加的时候，容器能够自动的伸展以适应内容的变化。</p>
-<p>#####前端兼容性问题十：为什么web标准中无法设置IE浏览器滚动条颜色了？</p>
-<p>原来样式设置：</p>
+<h4 id="前端兼容性问题九-min-height最小高度的实现（兼容IE6、IE7、Firefox）"><a href="#前端兼容性问题九-min-height最小高度的实现（兼容IE6、IE7、Firefox）" class="headerlink" title="前端兼容性问题九:min-height最小高度的实现（兼容IE6、IE7、Firefox）"></a>前端兼容性问题九:min-height最小高度的实现（兼容IE6、IE7、Firefox）</h4><p>作用是：当容器的内容较少时，能保持一个最小的高度，以免破坏了布局或UI设计效果。而当容器内的内容增加的时候，容器能够自动的伸展以适应内容的变化。</p>
+<h5 id="前端兼容性问题十：为什么web标准中无法设置IE浏览器滚动条颜色了？"><a href="#前端兼容性问题十：为什么web标准中无法设置IE浏览器滚动条颜色了？" class="headerlink" title="前端兼容性问题十：为什么web标准中无法设置IE浏览器滚动条颜色了？"></a>前端兼容性问题十：为什么web标准中无法设置IE浏览器滚动条颜色了？</h5><p>原来样式设置：</p>
 <p>解决办法是将body换成html。</p>
-<p>#十、flex</p>
-<p>flex 是 flex-grow、flex-shrink、flex-basis的缩写,flex 的默认值是 0 1 auto</p>
+<h1 id="十、flex"><a href="#十、flex" class="headerlink" title="十、flex"></a>十、flex</h1><p>flex 是 flex-grow、flex-shrink、flex-basis的缩写,flex 的默认值是 0 1 auto</p>
 <p><b>flex-grow</b>属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。</p>
 <p><b>flex-shrink</b>定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</p>
 <p><b>flex-basis</b>属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</p>
@@ -415,8 +457,7 @@ CSS3新增了一个属性box-sizing: content-box | border-box | inherit，默认
 
 </li>
 </ul>
-<p>####flex-flow举例</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;item-1&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item-2&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item-3&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">    .parent &#123;</span><br><span class="line">        display: flex;</span><br><span class="line">        width: 600px;</span><br><span class="line">    &#125;</span><br><span class="line">    .parent &gt; div &#123;</span><br><span class="line">        height: 100px;</span><br><span class="line">    &#125;</span><br><span class="line">    .item-1 &#123;</span><br><span class="line">        width: 140px;</span><br><span class="line">        flex: 2 1 0%;</span><br><span class="line">        background: blue;</span><br><span class="line">    &#125;</span><br><span class="line">    .item-2 &#123;</span><br><span class="line">        width: 100px;</span><br><span class="line">        flex: 2 1 auto;</span><br><span class="line">        background: darkblue;</span><br><span class="line">    &#125;</span><br><span class="line">    .item-3 &#123;</span><br><span class="line">        flex: 1 1 200px;</span><br><span class="line">        background: lightblue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<h4 id="flex-flow举例"><a href="#flex-flow举例" class="headerlink" title="flex-flow举例"></a>flex-flow举例</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=&quot;parent&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;item-1&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item-2&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;item-3&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;style type=&quot;text/css&quot;&gt;</span><br><span class="line">    .parent &#123;</span><br><span class="line">        display: flex;</span><br><span class="line">        width: 600px;</span><br><span class="line">    &#125;</span><br><span class="line">    .parent &gt; div &#123;</span><br><span class="line">        height: 100px;</span><br><span class="line">    &#125;</span><br><span class="line">    .item-1 &#123;</span><br><span class="line">        width: 140px;</span><br><span class="line">        flex: 2 1 0%;</span><br><span class="line">        background: blue;</span><br><span class="line">    &#125;</span><br><span class="line">    .item-2 &#123;</span><br><span class="line">        width: 100px;</span><br><span class="line">        flex: 2 1 auto;</span><br><span class="line">        background: darkblue;</span><br><span class="line">    &#125;</span><br><span class="line">    .item-3 &#123;</span><br><span class="line">        flex: 1 1 200px;</span><br><span class="line">        background: lightblue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
 
 <p>主轴上父容器总尺寸为 600px</p>
 <p>子元素的总基准值是：0% + auto + 200px = 300px，其中</p>
@@ -440,7 +481,7 @@ CSS3新增了一个属性box-sizing: content-box | border-box | inherit，默认
 </ul>
 <p>当 item-1 基准值取 0% 的时候，是把该项目视为零尺寸的，故即便声明其尺寸为 140px，也并没有什么用，形同虚设</p>
 <p>而 item-2 基准值取 auto 的时候，根据规则基准值使用值是主尺寸值即 100px，故这 100px 不会纳入剩余空间</p>
-<p>####flex-shrink举例<br>现在三个子div的宽度是600px, 外层div的宽度设置成500px, 那么不够显示的600-500 px应该怎么让子div们收缩掉这100px。</p>
+<h4 id="flex-shrink举例"><a href="#flex-shrink举例" class="headerlink" title="flex-shrink举例"></a>flex-shrink举例</h4><p>现在三个子div的宽度是600px, 外层div的宽度设置成500px, 那么不够显示的600-500 px应该怎么让子div们收缩掉这100px。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">html部分：</span><br><span class="line">    &lt;div class=&quot;outer&quot;&gt;</span><br><span class="line">    &lt;div class=&apos;div1&apos;&gt;1&lt;/div&gt;</span><br><span class="line">    &lt;div class=&apos;div2&apos;&gt;2&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;div3&quot;&gt;3&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">css部分：</span><br><span class="line"></span><br><span class="line">.outer &#123;</span><br><span class="line">  width: 500px;</span><br><span class="line">  display: flex;</span><br><span class="line">&#125;</span><br><span class="line">.outer div &#123;</span><br><span class="line">  height: 80px;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.div1 &#123;</span><br><span class="line">  flex: 1 1 100px;</span><br><span class="line">  background: red;</span><br><span class="line">&#125;</span><br><span class="line">.div2 &#123;</span><br><span class="line">  flex: 1 2 200px;</span><br><span class="line">  background: yellow;</span><br><span class="line">&#125;</span><br><span class="line">.div3 &#123;</span><br><span class="line">  flex: 1 3 300px;</span><br><span class="line">  background: green;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><b>先计算总权重TW = 100px * 1(flex-shrink) + 200px *2(flex-shrink) + 300px *3(flex-shrink) = 1400px 也就是每个div的宽度乘以flex-shrink系数的总和。</b></p>
@@ -449,7 +490,7 @@ CSS3新增了一个属性box-sizing: content-box | border-box | inherit，默认
 <p>div1最后的宽度 = 100px - 100*1/1400 * 100px = 92.86px</p>
 <p>div2最后的宽度 = 200px - 200*2/1400 * 100px = 171.42px</p>
 <p>div3最后的宽度 = 300px - 300*3/1400 * 100px = 235.72px</p>
-<p><br><br><br>参考链接：<a href="https://www.cnblogs.com/ranyonsue/p/9204986.html" target="_blank" rel="noopener">https://www.cnblogs.com/ranyonsue/p/9204986.html</a></p>
+<p>参考链接：<a href="https://www.cnblogs.com/ranyonsue/p/9204986.html" target="_blank" rel="noopener">https://www.cnblogs.com/ranyonsue/p/9204986.html</a></p>
 
       
 
