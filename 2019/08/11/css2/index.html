@@ -16,7 +16,7 @@
 <meta property="og:description" content="十一 、div垂直居中的方法1、flex布局给父级元素设为display:flex;justify-contnet:center  //设置水片居中align-items:center  //设置垂直居中可以设置css不定宽高水平垂直居中 123456789101112131415161718 &amp;lt;div class=&amp;quot;box&amp;quot;&amp;gt;    &amp;lt;div class=&amp;">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://images2018.cnblogs.com/blog/1337908/201805/1337908-20180510131450441-915853082.png">
-<meta property="og:updated_time" content="2019-08-12T12:59:27.376Z">
+<meta property="og:updated_time" content="2019-08-14T11:31:13.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wyy的博客空间">
 <meta name="twitter:description" content="十一 、div垂直居中的方法1、flex布局给父级元素设为display:flex;justify-contnet:center  //设置水片居中align-items:center  //设置垂直居中可以设置css不定宽高水平垂直居中 123456789101112131415161718 &amp;lt;div class=&amp;quot;box&amp;quot;&amp;gt;    &amp;lt;div class=&amp;">
@@ -222,7 +222,7 @@
 <h3 id="7、双飞翼"><a href="#7、双飞翼" class="headerlink" title="7、双飞翼"></a>7、双飞翼</h3><p>区别：<br>圣杯布局是中间栏在添加相对定位，并配合 left 和 right 属性，效果上表现为三栏是单独分开的<br>    双飞翼布局是在中间栏的 div 中嵌套一个 div，内容写在嵌套的 div 里，然后对嵌套的 div 设置 margin-left 和 margin-right，效果上表现为左右两栏在中间栏的上面，中间栏还是 100% 宽度，只不过中间栏的内容通过 margin 的值显示在中间<br>    通过两者实现的截图红色区域可以很明显看到两者区别</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">.container &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 100%;</span><br><span class="line">    background: #f00;</span><br><span class="line">&#125;</span><br><span class="line">.content &#123;</span><br><span class="line">    margin-left: 200px;</span><br><span class="line">    margin-right: 300px;</span><br><span class="line">&#125;</span><br><span class="line">.left &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 200px;</span><br><span class="line">    margin-left: -100%;</span><br><span class="line">    background: #0f0;</span><br><span class="line">&#125;</span><br><span class="line">.right &#123;</span><br><span class="line">    float: left;</span><br><span class="line">    width: 300px;</span><br><span class="line">    margin-left: -300px;</span><br><span class="line">    background: #00f;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">  </span><br><span class="line">&lt;div class=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;content&quot;&gt;中间内容区域&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;left&quot;&gt;左侧边栏区域&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;right&quot;&gt;右侧边栏区域&lt;/div&gt;</span><br></pre></td></tr></table></figure>
 
-<h1 id="十三、网页渲染之—–回流-重排Reflow-与重绘-Repaint"><a href="#十三、网页渲染之—–回流-重排Reflow-与重绘-Repaint" class="headerlink" title="十三、网页渲染之—–回流(重排Reflow)与重绘(Repaint)"></a>十三、网页渲染之—–回流(重排Reflow)与重绘(Repaint)</h1><p>在讨论回流与重绘之前，我们要知道：</p>
+<h1 id="十四、网页渲染之—–回流-重排Reflow-与重绘-Repaint"><a href="#十四、网页渲染之—–回流-重排Reflow-与重绘-Repaint" class="headerlink" title="十四、网页渲染之—–回流(重排Reflow)与重绘(Repaint)"></a>十四、网页渲染之—–回流(重排Reflow)与重绘(Repaint)</h1><p>在讨论回流与重绘之前，我们要知道：</p>
 <p>浏览器使用流式布局模型 (Flow Based Layout)。<br>浏览器会把HTML解析成DOM，把CSS解析成CSSOM，DOM和CSSOM合并就产生了Render Tree。<br>有了RenderTree，我们就知道了所有节点的样式，然后计算他们在页面上的大小和位置，最后把节点绘制到页面上。<br>由于浏览器使用流式布局，对Render Tree的计算通常只需要遍历一次就可以完成，但table及其内部元素除外，他们可能需要多次计算，通常要花3倍于同等元素的时间，这也是为什么要避免使用table布局的原因之一。</p>
 <p>####一句话：回流必将引起重绘，重绘不一定会引起回流。</p>
 <h2 id="（一）回流"><a href="#（一）回流" class="headerlink" title="（一）回流"></a>（一）回流</h2><p>对回流这个词，我的理解是回炉重造，即对于整个网页重新渲染一遍。那我们可以思考一下，从性能角度来讲，如果我们来写浏览器的代码，一定是再必须要重新渲染网页的时候再重新渲染，那就推出一个问题，什么时候浏览器必须要重新渲染网页？</p>
@@ -265,6 +265,37 @@
 <p>3.也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘。</p>
 <p>4.避免频繁读取会引发回流/重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。</p>
 <p>5.对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。</p>
+<h1 id="十五、BOM"><a href="#十五、BOM" class="headerlink" title="十五、BOM"></a>十五、BOM</h1><p>Bom：浏览器对象模型（Browser Object Model，简称 BOM）提供了独立于内容而与浏览器窗口进行交互的对象。描述了与浏览器进行交互的方法和接口，可以对浏览器窗口进行访问和操作</p>
+<p><b>（1）window对象：当前浏览器窗体</b><br>   属性：</p>
+<ul>
+<li><p>status：状态栏(目前浏览器已弃用了）</p>
+</li>
+<li><p>opener：即谁打开我的，若在A用open打开B则B的opener就是A</p>
+</li>
+<li><p>closed：判断子窗体是否关闭——-</p>
+</li>
+</ul>
+<p>方法：<br>alert()  弹出框</p>
+<p>confirm() 带确认,取消弹出框</p>
+<p>setInterval() 每隔多少秒调用一次</p>
+<p>clearInterval() 清除setInterval</p>
+<p>setTimeout() 隔多少秒调用一次</p>
+<p>cleartimeout() 清除setTimeout</p>
+<p>open() 打开一个新的窗口</p>
+<p>eg :  window.open(“other.html”,” _blank”,”width=200,height=300,top=300”);   </p>
+<ul>
+<li>console:最常用的就是console.log()浏览器控制台打印</li>
+</ul>
+<p><b>（2）子对象：doument loation history screen ……</b></p>
+<p>1、 doument  （讲dom已经介绍过它的属性方法 ，有感兴趣的可以翻看dom操作）</p>
+<p>2、 loation 跳转位置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta http-equiv=&quot;refresh&quot; content=&quot;3; url =http://www.hteis.cn&quot;;&gt;  </span><br><span class="line">//不加url指3秒刷新一次，加url指3秒跳转</span><br><span class="line">window.location.href=&quot;popl.html&quot;;</span><br><span class="line">location = pop.html</span><br><span class="line">location.replace(&quot;pop.html&quot;) //浏览器不可以后退</span><br></pre></td></tr></table></figure>
+
+<p>3、 history 历史<br>history.back() == history.go(-1)   //返回到前一页<br>history.go(-2) //括号里的参数负几就是返回前几步</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">　eg: &lt;a href=&quot;javascript:history.back()&quot;&gt;返回上一页&lt;/a&gt;</span><br><span class="line"></span><br><span class="line">　&lt;a href=&quot;javascript:history.go(-2)&quot;&gt;第一页&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+
+<p>4、 screen //屏幕<br>screen.availHeight //屏幕实际高度<br>screen.availWidth //屏幕实际宽度<br>screen.height //屏幕高度<br>screen.width //屏幕宽度　</p>
+<p>console.log(“屏幕实际高度”+screen.availHeight);<br>console.log(“屏幕实际宽度”+screen.availWidth);<br>console.log(“屏幕高度”+screen.height);<br>console.log(“屏幕宽度”+screen.width);</p>
 
       
 
@@ -357,6 +388,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2019/08/15/html5kuayu/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
   
     <a href="/2019/08/11/css1/" id="article-nav-older" class="article-nav-link-wrap">
