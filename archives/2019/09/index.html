@@ -6,19 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>wyy的博客空间</title>
+  <title>Archives: 2019/9 | wyy的博客空间</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1. 块作用域{ }JS中作用域有：全局作用域、函数作用域。没有块作用域的概念。ECMAScript 6(简称ES6)中新增了块级作用域。块作用域由 { } 包括，if语句和for语句里面的{ }也属于块作用域。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647&amp;lt;scri">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="website">
 <meta property="og:title" content="wyy的博客空间">
-<meta property="og:url" content="http://yoursite.com/2019/08/21/let var let区别/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/2019/09/index.html">
 <meta property="og:site_name" content="wyy的博客空间">
-<meta property="og:description" content="1. 块作用域{ }JS中作用域有：全局作用域、函数作用域。没有块作用域的概念。ECMAScript 6(简称ES6)中新增了块级作用域。块作用域由 { } 包括，if语句和for语句里面的{ }也属于块作用域。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647&amp;lt;scri">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-21T12:18:11.611Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wyy的博客空间">
-<meta name="twitter:description" content="1. 块作用域{ }JS中作用域有：全局作用域、函数作用域。没有块作用域的概念。ECMAScript 6(简称ES6)中新增了块级作用域。块作用域由 { } 包括，if语句和for语句里面的{ }也属于块作用域。 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647&amp;lt;scri">
   
     <link rel="alternative" href="/atom.xml" title="wyy的博客空间" type="application/atom+xml">
   
@@ -154,170 +150,64 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-let var let区别" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-    <div class="article-entry" itemprop="articleBody">
+    
       
-        <h1 id="1-块作用域"><a href="#1-块作用域" class="headerlink" title="1. 块作用域{ }"></a>1. 块作用域{ }</h1><p>JS中作用域有：全局作用域、函数作用域。没有块作用域的概念。ECMAScript 6(简称ES6)中新增了块级作用域。<br>块作用域由 { } 包括，if语句和for语句里面的{ }也属于块作用域。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">	&#123;</span><br><span class="line">		var a = 1;</span><br><span class="line">		console.log(a); // 1</span><br><span class="line">	&#125;</span><br><span class="line">	console.log(a); // 1</span><br><span class="line">	// 可见，通过var定义的变量可以跨块作用域访问到。</span><br><span class="line"></span><br><span class="line">	(function A() &#123;</span><br><span class="line">		var b = 2;</span><br><span class="line">		console.log(b); // 2</span><br><span class="line">	&#125;)();</span><br><span class="line">	// console.log(b); // 报错，</span><br><span class="line">	// 可见，通过var定义的变量不能跨函数作用域访问到</span><br><span class="line"></span><br><span class="line">	if(true) &#123;</span><br><span class="line">		var c = 3;</span><br><span class="line">	&#125;</span><br><span class="line">	console.log(c); // 3</span><br><span class="line">	for(var i = 0; i &lt; 4; i++) &#123;</span><br><span class="line">		var d = 5;</span><br><span class="line">	&#125;;</span><br><span class="line">	console.log(i);	// 4   (循环结束i已经是4，所以此处i为4)</span><br><span class="line">	console.log(d); // 5</span><br><span class="line">	// if语句和for语句中用var定义的变量可以在外面访问到，</span><br><span class="line">	// 可见，if语句和for语句属于块作用域，不属于函数作用域。</span><br><span class="line"></span><br><span class="line">	&#123;</span><br><span class="line">		var a = 1;</span><br><span class="line">		let b = 2;</span><br><span class="line">		const c = 3;	</span><br><span class="line">		</span><br><span class="line">		&#123;</span><br><span class="line">			console.log(a);		// 1	子作用域可以访问到父作用域的变量</span><br><span class="line">			console.log(b);		// 2	子作用域可以访问到父作用域的变量</span><br><span class="line">			console.log(c);		// 3	子作用域可以访问到父作用域的变量</span><br><span class="line"></span><br><span class="line">			var aa = 11;</span><br><span class="line">			let bb = 22;</span><br><span class="line">			const cc = 33;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		console.log(aa);	// 11	// 可以跨块访问到子 块作用域 的变量</span><br><span class="line">		// console.log(bb);	// 报错	bb is not defined</span><br><span class="line">		// console.log(cc);	// 报错	cc is not defined</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-var、let、const的区别"><a href="#2-var、let、const的区别" class="headerlink" title="2. var、let、const的区别"></a>2. var、let、const的区别</h2><ul>
-<li>var定义的变量，没有块的概念，可以跨块访问, 不能跨函数访问。</li>
-<li>let定义的变量，只能在块作用域里访问，不能跨块访问，也不能跨函数访问。</li>
-<li>const用来定义常量，使用时必须初始化(即必须赋值)，只能在块作用域里访问，而且不能修改。</li>
-<li>同一个变量只能使用一种方式声明，不然会报错</li>
-<li>var声明变量存在变量提升，let和const不存在变量提升</li>
-<li>同一作用域下let和const不能声明同名变量，而var可以</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">	// 块作用域</span><br><span class="line">	&#123;</span><br><span class="line">		var a = 1;</span><br><span class="line">		let b = 2;</span><br><span class="line">		const c = 3;</span><br><span class="line">		// c = 4; // 报错</span><br><span class="line">		</span><br><span class="line">		// let a = &apos;a&apos;;	// 报错  注：是上面 var a = 1; 那行报错</span><br><span class="line">		// var b = &apos;b&apos;;	// 报错：本行报错</span><br><span class="line">		// const a = &apos;a1&apos;;	// 报错  注：是上面 var a = 1; 那行报错</span><br><span class="line">		// let c = &apos;c&apos;;	// 报错：本行报错</span><br><span class="line"></span><br><span class="line">		var aa;</span><br><span class="line">		let bb;</span><br><span class="line">		// const cc; // 报错</span><br><span class="line">		console.log(a); // 1</span><br><span class="line">		console.log(b); // 2</span><br><span class="line">		console.log(c); // 3</span><br><span class="line">		console.log(aa); // undefined</span><br><span class="line">		console.log(bb); // undefined</span><br><span class="line">	&#125;</span><br><span class="line">	console.log(a); // 1</span><br><span class="line">	// console.log(b); // 报错</span><br><span class="line">	// console.log(c); // 报错</span><br><span class="line"></span><br><span class="line">	// 函数作用域</span><br><span class="line">	(function A() &#123;</span><br><span class="line">		var d = 5;</span><br><span class="line">		let e = 6;</span><br><span class="line">		const f = 7;</span><br><span class="line">		console.log(d); // 5</span><br><span class="line">		console.log(e); // 6  (在同一个&#123; &#125;中,也属于同一个块，可以正常访问到)</span><br><span class="line">		console.log(f); // 7  (在同一个&#123; &#125;中,也属于同一个块，可以正常访问到)</span><br><span class="line">	&#125;)();</span><br><span class="line">	// console.log(d); // 报错</span><br><span class="line">	// console.log(e); // 报错</span><br><span class="line">	// console.log(f); // 报错</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h1 id="暂存性死区"><a href="#暂存性死区" class="headerlink" title="暂存性死区"></a>暂存性死区</h1><pre><code> var a = 100;
-
-if(1){
-    a = 10;
-    //在当前块作用域中存在a使用let/const声明的情况下，给a赋值10时，只会在当前作用域找变量a，
-    // 而这时，还未到声明时候，所以控制台Error:a is not defined
-    let a = 1;
-}</code></pre><p>版权声明：本文为CSDN博主「hot_cool」的原创文章，遵循CC 4.0 by-sa版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a href="https://blog.csdn.net/hot_cool/article/details/78302673" target="_blank" rel="noopener">https://blog.csdn.net/hot_cool/article/details/78302673</a></p>
-
       
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/01/this、bind、apply、call/" class="archive-article-date">
+  	<time datetime="2019-09-01T11:52:13.742Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-01</time>
+</a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
+    	 
+        <div class="article-info info-on-right">
+          
+          
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/08/21/let var let区别/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2019/09/01/事件冒泡、捕获/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/08/21/变量提升/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/09/01/事件冒泡、捕获/" class="archive-article-date">
+  	<time datetime="2019-09-01T11:24:05.019Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-01</time>
+</a>
         </div>
-        
-        
-    </div>
-</aside>
+    	 
+        <div class="article-info info-on-right">
+          
+          
 
-
-
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
   
   
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -340,8 +230,8 @@ if(1){
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
