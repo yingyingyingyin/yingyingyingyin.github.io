@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>wyy的博客空间</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="this/call/apply/bind  一、前言this指向，apply，call，bind的区别是一个经典的面试问题，同时在项目中会经常使用到的原生的js方法。同时也是ES5中的众多坑的一个。ES6中可能会极大的避免了this产生的错误，有时候需要维护老的项目还是有必要了解一下this的指向和apply，call，bind三者的区别。 二、this的指向在ES5中，其实this的指向，始终坚">
+  <meta name="description" content="call、bind、apply的手写实现apply和call的区别就是传的参数形式不一样。call是一个一个的传，apply可以将参数以数组的形式传进去。而bind是传入第二个和后面的参数，且绑定this，返回一个转化后的函数。 考虑两点 （1） 第一个参数为undefined或null的时候，那么会转变为window（2） 改变了this执行，让新的对象可以执行该函数。  call 实现 123">
 <meta property="og:type" content="article">
 <meta property="og:title" content="wyy的博客空间">
-<meta property="og:url" content="http://yoursite.com/2019/09/01/this、bind、apply、call/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/11/cal、apply、bindl实现/index.html">
 <meta property="og:site_name" content="wyy的博客空间">
-<meta property="og:description" content="this/call/apply/bind  一、前言this指向，apply，call，bind的区别是一个经典的面试问题，同时在项目中会经常使用到的原生的js方法。同时也是ES5中的众多坑的一个。ES6中可能会极大的避免了this产生的错误，有时候需要维护老的项目还是有必要了解一下this的指向和apply，call，bind三者的区别。 二、this的指向在ES5中，其实this的指向，始终坚">
+<meta property="og:description" content="call、bind、apply的手写实现apply和call的区别就是传的参数形式不一样。call是一个一个的传，apply可以将参数以数组的形式传进去。而bind是传入第二个和后面的参数，且绑定this，返回一个转化后的函数。 考虑两点 （1） 第一个参数为undefined或null的时候，那么会转变为window（2） 改变了this执行，让新的对象可以执行该函数。  call 实现 123">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-07T03:10:39.124Z">
+<meta property="og:updated_time" content="2019-09-11T11:05:52.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wyy的博客空间">
-<meta name="twitter:description" content="this/call/apply/bind  一、前言this指向，apply，call，bind的区别是一个经典的面试问题，同时在项目中会经常使用到的原生的js方法。同时也是ES5中的众多坑的一个。ES6中可能会极大的避免了this产生的错误，有时候需要维护老的项目还是有必要了解一下this的指向和apply，call，bind三者的区别。 二、this的指向在ES5中，其实this的指向，始终坚">
+<meta name="twitter:description" content="call、bind、apply的手写实现apply和call的区别就是传的参数形式不一样。call是一个一个的传，apply可以将参数以数组的形式传进去。而bind是传入第二个和后面的参数，且绑定this，返回一个转化后的函数。 考虑两点 （1） 第一个参数为undefined或null的时候，那么会转变为window（2） 改变了this执行，让新的对象可以执行该函数。  call 实现 123">
   
     <link rel="alternative" href="/atom.xml" title="wyy的博客空间" type="application/atom+xml">
   
@@ -154,100 +154,29 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-this、bind、apply、call" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-cal、apply、bindl实现" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1>this/call/apply/bind</h1>
-
-<h3 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h3><p>this指向，apply，call，bind的区别是一个经典的面试问题，同时在项目中会经常使用到的原生的js方法。同时也是ES5中的众多坑的一个。ES6中可能会极大的避免了this产生的错误，有时候需要维护老的项目还是有必要了解一下this的指向和apply，call，bind三者的区别。</p>
-<h3 id="二、this的指向"><a href="#二、this的指向" class="headerlink" title="二、this的指向"></a>二、this的指向</h3><p>在ES5中，其实this的指向，始终坚持一个原理：this永远指向最后一个调用它的那个对象。</p>
-<p>首先我们看一个栗子1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">function a() &#123;</span><br><span class="line">    var name = &quot;Cherry&quot;;</span><br><span class="line">    console.log(this.name);          // windowsName</span><br><span class="line">    console.log(&quot;inner:&quot; + this);    // inner: Window</span><br><span class="line">&#125;</span><br><span class="line">a();</span><br><span class="line">console.log(&quot;outer:&quot; + this)         // outer: Window</span><br></pre></td></tr></table></figure>
-
-<p>输出windowsName，是因为“this永远指向最后调用它的那个对象”，我们看到调用a的地方a()，前面没有调用的对象那么就是全局对象window，就是全局对象调用a()，相当于window.a()。</p>
-<p>如果使用严格模式，全局对象就是undefined，会报错name of undefined</p>
-<p>栗子2：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">var a = &#123;</span><br><span class="line">    name: &quot;Cherry&quot;,</span><br><span class="line">    fn : function () &#123;</span><br><span class="line">        console.log(this.name);      // Cherry</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a.fn();</span><br></pre></td></tr></table></figure>
-
-<p>在这个栗子中，函数fn是对象a调用的，所以console是a中的name</p>
-<p>栗子3:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">    var a = &#123;</span><br><span class="line">        name: &quot;Cherry&quot;,</span><br><span class="line">        fn : function () &#123;</span><br><span class="line">            console.log(this.name);      // Cherry</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    window.a.fn();</span><br></pre></td></tr></table></figure>
-
-<p>这个栗子中，记住“this永远指向最后一个调用它的那个对象”，调用fn的对象有window，a，但是最后调用fn是a对象，所以this指向对象a中的name。</p>
-<p>栗子4：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">var a = &#123;</span><br><span class="line">    // name: &quot;Cherry&quot;,</span><br><span class="line">    fn : function () &#123;</span><br><span class="line">        console.log(this.name);      // undefined</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">window.a.fn();</span><br></pre></td></tr></table></figure>
-
-<p>为啥undefined，调用fn的对象有：window，a，最后一个调用fn是a，但是a中没有对那么进行定义，也不会继续向上一个对象寻找 this.name，而是直接输出 undefined，所以this.name为undefined。</p>
-<p>栗子5（比较坑）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">var a = &#123;</span><br><span class="line">    name : null,</span><br><span class="line">    // name: &quot;Cherry&quot;,</span><br><span class="line">    fn : function () &#123;</span><br><span class="line">        console.log(this.name);      // windowsName</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var f = a.fn;</span><br><span class="line">f();</span><br></pre></td></tr></table></figure>
-
-<p>这个栗子比较坑，为啥 不是null，因为虽然将a对象的fn方法赋值给变量f，但是没有调用，“this永远执行最后一个调用ta的那个对象”，由于刚刚的f没有调用，所以fn()最后仍然是被window调用的，所以this指向的也就是window。</p>
-<p>注意：this的指向并不是在创建的时候可以确定，在ES5中，永远都是this永远指向最后调用它的那个对象。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">栗子6:</span><br><span class="line"></span><br><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">function fn() &#123;</span><br><span class="line">    var name = &apos;Cherry&apos;;</span><br><span class="line">    innerFunction();</span><br><span class="line">    function innerFunction() &#123;</span><br><span class="line">        console.log(this.name);      // windowsName</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h3 id="三、怎样改变this的指向"><a href="#三、怎样改变this的指向" class="headerlink" title="三、怎样改变this的指向"></a>三、怎样改变this的指向</h3><p><b>改变this的指向，我总结以下的方法：</b></p>
-<p>（1）使用ES6中箭头函数</p>
-<p>（2）函数内部使用_this = this</p>
-<p>（3）使用apply，call，bind方法</p>
-<p>（4）new实例化一个对象</p>
-<p>举个栗子7：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)     </span><br><span class="line">    &#125;,</span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout(  function () &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;,100);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()     // this.func1 is not a function</span><br></pre></td></tr></table></figure>
-
-<p>在这个栗子中，不使用箭头函数情况下，会报错的，因为最后调用setTimeout的对象时window，但是在window并没有func1函数。</p>
-<p>我们改变this的指向这一节将吧这个栗子作为demo进行改造。</p>
-<h4 id="1、ES6中的箭头函数"><a href="#1、ES6中的箭头函数" class="headerlink" title="1、ES6中的箭头函数"></a>1、ES6中的箭头函数</h4><p>众所周知，ES6的箭头函数是可以避免ES5中this的坑，箭头函数的this始终指向函数定义时候的this，而并不是执行时候。箭头函数需要记住这句话：“箭头函数没有this绑定，必须通过查找作用域来决定其值，如果箭头函数被非箭头函数包含，则this的绑定的是最近一层非箭头函数的this，否则，this为undefined”</p>
-<p>栗子8：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)     </span><br><span class="line">    &#125;,</span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout( () =&gt; &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;,100);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()     // Cherry</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="2、在函数内部使用-this-this"><a href="#2、在函数内部使用-this-this" class="headerlink" title="2、在函数内部使用_this = this"></a>2、在函数内部使用_this = this</h4><p>在不使用ES6中，那么这种方式应该是最简单的不会出错的方式，我们先将调用这个函数的对象保存在变量_this中，然后在函数中都使用这个_this，这样_this就不会改变了。</p>
-<p>栗子9：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">var a = &#123;</span><br><span class="line">    </span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)     </span><br><span class="line">    &#125;,</span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        var _this = this;</span><br><span class="line">        setTimeout( function() &#123;</span><br><span class="line">            _this.func1()</span><br><span class="line">        &#125;,100);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()       // Cherry</span><br></pre></td></tr></table></figure>
-
-<p>在func2中，首先设置var _this = this，这里this是调用func2的对象a，为了防止在func2中的setTimeout被window调用而导致的在setTimeout中的this为window。我们将this赋值给一个变量_this，这样在func2中我们使用_this就是指向对象a了。</p>
-<h4 id="3、使用apply"><a href="#3、使用apply" class="headerlink" title="3、使用apply"></a>3、使用apply</h4><p>栗子10：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)</span><br><span class="line">    &#125;,</span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout(  function () &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;.apply(a),100);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()            // Cherry</span><br></pre></td></tr></table></figure>
-
-<p>在栗子中，apply()方法调用一个函数，其具有一个指定的this值，以及作为一个数组（或者类似数组的对象）提供的参数，fun.apply(thisArg, [argsArray])</p>
-<p>thisArg：在fun函数运行时指定的this值。指定this的值并不一定是函数执行时真正的this值，如果是原始值的this会指向该原始值的自动包装对象。</p>
-<p>argsArray：一个数组或者类数组对象，其中的数组元素将作为单独的参数传给fun函数。参数为null或者undefined，则表示不需要传入任何参数。</p>
-<h4 id="4、使用call"><a href="#4、使用call" class="headerlink" title="4、使用call"></a>4、使用call</h4><p>栗子11：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)</span><br><span class="line">    &#125;,</span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout(  function () &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;.call(a),100);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()            // Cherry</span><br></pre></td></tr></table></figure>
-
-<p>在栗子中，call()方法调用一个函数，其具有一个指定的this值，以及若干个参数列表，fun.call(thisArg, arg1, arg2, …)</p>
-<p>thisArg：在fun函数运行时指定的this值。指定this的值并不一定是函数执行时真正的this值，如果是原始值的this会指向该原始值的自动包装对象。</p>
-<p>arg1, arg2, …：若干个参数列表</p>
-<h4 id="5、使用bind"><a href="#5、使用bind" class="headerlink" title="5、使用bind"></a>5、使用bind</h4><p>栗子12：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)</span><br><span class="line">    &#125;,</span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout(  function () &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;.bind(a)(),100);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">a.func2()            // Cherry</span><br></pre></td></tr></table></figure>
-
-<p>在栗子中，bind()方法创建一个新的函数，当被调用时，将其this的关键字设置为提供的值，在调用新函数时，在任何提供一个给定的参数序列。</p>
-<p>bind创建了一个新函数，必须手动去调用。</p>
-<h3 id="四、apply，call，bind区别"><a href="#四、apply，call，bind区别" class="headerlink" title="四、apply，call，bind区别"></a>四、apply，call，bind区别</h3><ul>
-<li>1、apply和call的区别</li>
-</ul>
-<p>apply和call基本类似，他们的区别只是传入的参数不同。apply传入的参数是包含多个参数的数组，call传入的参数是若干个参数列表。</p>
-<p>栗子13：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a =&#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    fn : function (a,b) &#123;</span><br><span class="line">        console.log( a + b);</span><br><span class="line">        console.log( this.name );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var b = a.fn;</span><br><span class="line">b.apply(a,[1,2])     // 3   Cherry</span><br></pre></td></tr></table></figure>
-
-
-
-<p>栗子14：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a =&#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    fn : function (a,b) &#123;</span><br><span class="line">        console.log( a + b);</span><br><span class="line">        console.log( this.name );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var b = a.fn;</span><br><span class="line">b.call(a,1,2)       // 3   Cherry</span><br></pre></td></tr></table></figure>
-
-
-
+        <h1 id="call、bind、apply的手写实现"><a href="#call、bind、apply的手写实现" class="headerlink" title="call、bind、apply的手写实现"></a>call、bind、apply的手写实现</h1><p>apply和call的区别就是传的参数形式不一样。call是一个一个的传，apply可以将参数以数组的形式传进去。而bind是传入第二个和后面的参数，且绑定this，返回一个转化后的函数。</p>
+<p>考虑两点</p>
+<p>（1） 第一个参数为undefined或null的时候，那么会转变为window<br><br>（2） 改变了this执行，让新的对象可以执行该函数。</p>
 <ul>
-<li>2、bind和apply、call区别</li>
+<li><p>call 实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myCall = function(context) &#123;</span><br><span class="line">  // 判断是否是undefined和null</span><br><span class="line">  if (typeof context === &apos;undefined&apos; || context === null) &#123;</span><br><span class="line">    context = window</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = this</span><br><span class="line">  let args = [...arguments].slice(1)</span><br><span class="line">  let result = context.fn(...args)</span><br><span class="line">  delete context.fn</span><br><span class="line">  return result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>apply的实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myApply = function(context) &#123;</span><br><span class="line">  if (typeof context === &apos;undefined&apos; || context === null) &#123;</span><br><span class="line">    context = window</span><br><span class="line">  &#125;</span><br><span class="line">  context.fn = this</span><br><span class="line">  let args = arguments[1]</span><br><span class="line">  let result</span><br><span class="line">  if (args) &#123;</span><br><span class="line">    result = context.fn(...args)</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    result = context.fn()</span><br><span class="line">  &#125;</span><br><span class="line">  delete context.fn</span><br><span class="line">  return result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>bind实现：</p>
+</li>
 </ul>
-<p>bind方法会创建一个新的函数，当被调用的时候，将其this关键字设置为提供的值，我们必须手动去调用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a =&#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    fn : function (a,b) &#123;</span><br><span class="line">        console.log( a + b);</span><br><span class="line">        console.log( this.name );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">var b = a.fn;</span><br><span class="line">b.bind(a,1,2)()   //3   //Cherry</span><br></pre></td></tr></table></figure>
+<p>这里需要注意下，因为bind转换后的函数可以作为构造函数使用，此时this应该指向构造出的实例，而bind函数绑定的第一个参数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myBind = function(context) &#123;</span><br><span class="line">  if (typeof this !== &apos;function&apos;) &#123;</span><br><span class="line">    throw new TypeError(&apos;Error&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">  let _this = this</span><br><span class="line">  let args = [...arguments].slice(1)</span><br><span class="line">  return function F() &#123;</span><br><span class="line">    // 判断是否被当做构造函数使用</span><br><span class="line">    if (this instanceof F) &#123;</span><br><span class="line">      return _this.apply(this, args.concat([...arguments]))</span><br><span class="line">    &#125;</span><br><span class="line">    return _this.apply(context, args.concat([...arguments]))</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="arguments请见："><a href="#arguments请见：" class="headerlink" title="arguments请见："></a>arguments请见：</h4><p><a href="https://www.cnblogs.com/lcr-smg/p/10065877.html" target="_blank" rel="noopener">https://www.cnblogs.com/lcr-smg/p/10065877.html</a></p>
+
       
 
       
@@ -326,7 +255,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/01/this、bind、apply、call/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/09/11/cal、apply、bindl实现/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -340,7 +269,7 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/09/11/cal、apply、bindl实现/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/09/11/settimeout实现settimeintervel/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
@@ -350,7 +279,7 @@
     </a>
   
   
-    <a href="/2019/09/01/事件冒泡、捕获/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2019/09/01/this、bind、apply、call/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title"></div>
       <i class="icon-circle-right"></i>
     </a>
