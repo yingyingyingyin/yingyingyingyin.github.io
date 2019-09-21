@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="wyy的博客空间">
 <meta property="og:description" content="详情见https://www.cnblogs.com/zuobaiquan01/p/8477322.html 四种方法是对比 1234567891011121314151617 /使用定时函数模拟异步请求：方法一：使用回调函数 function doSomething(callback)&amp;#123;  setTimeout(function()&amp;#123;    console.log(&amp;apos">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-21T10:21:03.124Z">
+<meta property="og:updated_time" content="2019-09-21T10:52:23.565Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="wyy的博客空间">
 <meta name="twitter:description" content="详情见https://www.cnblogs.com/zuobaiquan01/p/8477322.html 四种方法是对比 1234567891011121314151617 /使用定时函数模拟异步请求：方法一：使用回调函数 function doSomething(callback)&amp;#123;  setTimeout(function()&amp;#123;    console.log(&amp;apos">
@@ -166,7 +166,7 @@
 <p>// 方法二：promise对象<br>function doSomething(){<br>  return new Promise(function(resolve){<br>    setTimeout(function(){<br>      console.log(‘执行结束’);<br>      let result = 6;<br>      resolve(result);<br>    },100);<br>  });</p>
 <p>}</p>
 <p>doSomething().then(result=&gt;{<br>  console.log(‘接收到结果为：’+result);<br>});</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"> </span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p>// 方法三：generator函数<br>function doSomething(){<br>  setTimeout(function(){<br>    let result = 6;<br>    it.next(result);<br>  },100);<br>}</p>
 <p>function *gener(){<br>  var result = yield doSomething();<br>  console.log(result);<br>}</p>
