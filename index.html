@@ -152,6 +152,71 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Node" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="node-js"><a href="#node-js" class="headerlink" title="node.js"></a>node.js</h1><h2 id="day1"><a href="#day1" class="headerlink" title="day1"></a>day1</h2><ul>
+<li>node是javascript的运行时的环境，可以解析执行javascrpt,使得js不用在浏览器中就可以运行。</li>
+<li>node的特性：（1）事件驱动（2）非阻塞IO模型（3）轻量和高效</li>
+<li>Npm是世界上最大的开源库生态系统。</li>
+</ul>
+<h2 id="day2"><a href="#day2" class="headerlink" title="day2"></a>day2</h2><ul>
+<li><p>用require加载模块：</p>
+<p><code>var http=require(&#39;http&#39;)</code></p>
+</li>
+<li><p>在Node中，没有全局作用域，只要模块作用域。</p>
+</li>
+<li><p>npm install</p>
+<ul>
+<li>npm install  art_template  –save(安装生产环境–【已经部署上线】中的依赖，会在package.json文件中的dependencies)</li>
+<li>npm install art-template   –save-dev(安装开大环境中的依赖，会在package.json文件中的Devdependencies)</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/01/14/Node/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-muneTree" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -826,136 +891,6 @@ if(1){
 
 
   
-    <article id="post-html5kuayu" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="跨域"><a href="#跨域" class="headerlink" title="跨域"></a>跨域</h1><p>在跨域安全性方面，有多个地方会有限制，主要是XMLHttpRequest对象的跨域限制和iFrame的跨域限制，下面我们分别来看一下。</p>
-<h2 id="Ajax跨域（CORS）"><a href="#Ajax跨域（CORS）" class="headerlink" title="Ajax跨域（CORS）"></a>Ajax跨域（CORS）</h2><p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。</p>
-<p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
-<p>CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。</p>
-<p>整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。</p>
-<p>因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
-<h2 id="以PHP服务端为例"><a href="#以PHP服务端为例" class="headerlink" title="以PHP服务端为例"></a>以PHP服务端为例</h2><p>如果一个请求允许<a href="http://www.example.com的域请求的话，可以在PHP中这么写：" target="_blank" rel="noopener">http://www.example.com的域请求的话，可以在PHP中这么写：</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(&quot;Access-Control-Allow-Origin:http://www.example.com&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>如果有多个允许跨域访问的地址，可以添加多条或使用“,”号进行分隔，如果希望所有来源的地址都可以访问当前的页面，可以如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(&quot;Access-Control-Allow-Origin:*&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>同时，也可以控制请求的方法，如下是允许GET和POST两种请求方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">header(&quot;Access-Control-Allow-Method:POST,GET&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>IE中，要跨域需要使用到XDomainRequest的对象，我们这里就不展开来说了，而在其它浏览器中，使用<b>XMLHttpRequest</b>对象即可，并没有不一样的地方。</p>
-<h3 id="一个需要注意的地方"><a href="#一个需要注意的地方" class="headerlink" title="一个需要注意的地方"></a>一个需要注意的地方</h3><p>最近在公司开发的过程中，遇见的情况是PHP已经添加了header(“Access-Control-Allow-Origin:*”);代码，但是客户端请求时，仍然报错，最终查出的bug是，包含的其它PHP中，也添加了相同的代码，导致服务端返回时，在Chrome的Network页面中，发现有两条一样的头部数据，去掉一条即可。</p>
-<h2 id="CORS跨域之前的跨域方法"><a href="#CORS跨域之前的跨域方法" class="headerlink" title="CORS跨域之前的跨域方法"></a>CORS跨域之前的跨域方法</h2><p>在CORS标准出现之前，XHR对象是不能跨域请求的，不过开发人员凭借自己的聪明才智，绕过了XHR对象，创造了另外几种可以跨域请求的方式，我们下面开简单的看看。</p>
-<h2 id="图像Ping"><a href="#图像Ping" class="headerlink" title="图像Ping"></a>图像Ping</h2><p>前端里面图片元素没有跨域的限制，所以我们可以通过模拟请求一个图片的方法，向服务端发送数据，服务端对应的页面可以返回一个简单的图片数据或者什么数据都不返回（客户端得到204状态）。</p>
-<p>1 var img = new Image();<br>2 img.onload = img.onerror = function () {<br>3     console.log(“Done”);<br>4 }<br>5 img.src = “<a href="http://www.example.com/test.php?name=LiLei&amp;age=28&quot;" target="_blank" rel="noopener">http://www.example.com/test.php?name=LiLei&amp;age=28&quot;</a>;</p>
-<p>缺点是可以得到请求成功和失败的回调但是得不到服务端返回的数据，除非将数据放入图片返回。</p>
-<p>统计在线广告浏览量等不需要返回数据的情况下通常使用该方式。</p>
-<h2 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h2><p>即JSON with padding的简写，简单来说：<b>就是通过添加一个script标签，通过创建该标签的src地址来传递参数，而服务端返回JS代码的内容，JS代码回调一个页面中已经存在的JS方法，同时将需要给到客户端的信息作为参数传递即可。</b>这样就可以绕过XHR对象实现跨域请求并得到服务端返回的数据。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1 function handleResponse (response) &#123;</span><br><span class="line">2     console.log(&quot;name: &quot; + response.name + &quot;, age: &quot; + response.age);</span><br><span class="line">3 &#125;</span><br><span class="line">4 </span><br><span class="line">5 var script = document.createElement(&quot;script&quot;);</span><br><span class="line">6 script.src = &quot;http://www.example.com/test.php?name=LiLei&amp;age=28&quot;;</span><br><span class="line">7 document.body.insertBefore(script, document.body.firstChild);</span><br></pre></td></tr></table></figure>
-
-<p>当前代码中的handleResponse方法即服务端会回调的方法。</p>
-<p>handleResponse({“name”:”Han Meimei”, “age”:27});</p>
-<p>服务端返回上面的文本后，由于是添加的script脚本，所以会调用到handleResponse方法并得到服务端的数据。<br>JSONP缺点</p>
-<pre><code>访问的其他域如果不安全，可能会返回一些有害的JS代码到当前页面进行执行；
-难以确定请求失败的响应，需要用户自己实现一个超时计时器。</code></pre><h2 id="iFrame跨域"><a href="#iFrame跨域" class="headerlink" title="iFrame跨域"></a>iFrame跨域</h2><p>JavaScript出于安全方面的考虑，不允许iFrame跨域访问和调用其他页面的对象。</p>
-<p>试想一下，如果我们做了一个钓鱼网站，使用一个iFrame引入了XX银行的首页，把自己伪装成该银行首页，此时如果我们可以跨域调用和修改XX银行的所有数据，也可以通过修改和注入JS代码，后果就是：如果有人登录了我们的假网站，我们就可以通过给这个iFrame添加我们自己的JS代码来轻松获得这个人的帐号和密码信息。</p>
-<p>所以，iFrame不允许跨域访问是基于安全的考虑，也是必要的一个安全限制。</p>
-<p>我们看下，具体的跨域限制：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">http://www.a.com/a.js http://www.a.com/b.js 同一域名下 允许</span><br><span class="line"> http://www.a.com/lab/a.js http://www.a.com/script/b.js 同一域名下不同文件夹 允许</span><br><span class="line"> http://www.a.com:8000/a.js http://www.a.com/b.js 同一域名，不同端口 不允许</span><br><span class="line"> http://www.a.com/a.js https://www.a.com/b.js 同一域名，不同协议 不允许</span><br><span class="line"> http://www.a.com/a.js http://70.32.92.74/b.js 域名和域名对应ip 不允许</span><br><span class="line"> http://www.a.com/a.js http://script.a.com/b.js 主域相同，子域不同 不允许</span><br><span class="line"> http://www.a.com/a.js http://a.com/b.js 同一域名，不同二级域名（同上） 不允许（cookie这种情况下也不允许访问）</span><br><span class="line"> http://www.cnblogs.com/a.js http://www.a.com/b.js 不同域名 不允许</span><br></pre></td></tr></table></figure>
-
-<p>但是不可否认的是，在某些情况下，我们还是希望不同域的页面之间可以相互通信（注意这里不一定要相互可以调用修改）。下面我们来看看如何实现跨域的消息通信。</p>
-<h3 id="document-domain"><a href="#document-domain" class="headerlink" title="document.domain"></a>document.domain</h3><p>通过修改多个框架domain属性为同样的值，可以突破跨域的限制，使多个页面之间可以互相访问到。</p>
-<p>但是domain属性的修改有下面两个限制。<br>只能修改子域为主域，不能修改为其它域</p>
-<p>域example.com嵌入了域p2p.example.com的页面，通过修改p2p.example.com的domain即可实现双方互相访问和修改，如同没有跨域一样，但是要注意不能改为其它域：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 document.domain = &quot;example.com&quot;; // 成功</span><br><span class="line">2 document.domain = &quot;baidu.com&quot;; // 报错</span><br></pre></td></tr></table></figure>
-
-<p>不能将主域修改为子域</p>
-<p>如下，位于p2p.example.com的页面：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 document.domain = &quot;example.com&quot;; // 成功</span><br><span class="line">2 document.domain = &quot;p2p.example.com&quot;; // 报错</span><br></pre></td></tr></table></figure>
-
-<p>因为已经设置为主域了，再次设置会子域会报错。<br>使用postMessage</p>
-<p>跨文档消息传递（cross-document messaging），简称XDM，在H5中该功能可以用来向iFrame嵌套的页面和嵌套自己的页面相互发送消息，也可以向当前页面弹出的窗口相互传递消息。</p>
-<p>通过XDM我们可以安全的实现页面之间的跨域消息传递。</p>
-<p>XDM得核心方法是postMessage，postMessage()方法允许来自不同源的脚本采用异步方式进行有限的通信，可以实现跨文本档、多窗口、跨域消息传递。</p>
-<p>postMessage(data,origin)方法接受两个参数：</p>
-<pre><code>data:要传递的数据，html5规范中提到该参数可以是JavaScript的任意基本类型或可复制的对象，然而并不是所有浏览器都做到了这点儿，部分浏览器只能处理字符串参数，所以我们在传递参数的时候需要使用JSON.stringify()方法对对象参数序列化，在低版本IE中引用json2.js可以实现类似效果。
-origin：字符串参数，指明目标窗口的源，协议+主机+端口号[+URL]，URL会被忽略，所以可以不写，这个参数是为了安全考虑，postMessage()方法只会将message传递给指定窗口，当然如果愿意也可以建参数设置为&quot;*&quot;，这样可以传递给任意窗口。</code></pre><p>而在发送了消息之后，符合条件（iFrame嵌套页面或弹出窗口，且符合postMessage的origin参数的域）的其他页面的window对象会收到该消息，作为“message”事件抛出该消息，对应的event对象有如下主要属性：</p>
-<pre><code>data：顾名思义，是传递来的message；
-source：发送消息的窗口对象；
-origin：发送消息窗口的源（协议+主机+端口号）。</code></pre><p>下面我们看一个例子：</p>
-<p>A.html</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"> 1 &lt;!DOCTYPE html&gt;</span><br><span class="line"> 2 &lt;html&gt;</span><br><span class="line"> 3 &lt;head&gt;</span><br><span class="line"> 4     &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</span><br><span class="line"> 5     &lt;title&gt;A&lt;/title&gt;</span><br><span class="line"> 6 &lt;body&gt;</span><br><span class="line"> 7     &lt;p&gt;A&lt;/p&gt;</span><br><span class="line"> 8     &lt;input type=&quot;button&quot; value=&quot;发送消息到frameB并得到frameB的回应&quot; onclick=&quot;sendMsg()&quot;&gt;</span><br><span class="line"> 9     &lt;iframe id=&quot;frameB&quot; src=&quot;./B.html&quot; style=&quot;width: 90%;&quot;&gt;&lt;/iframe&gt;</span><br><span class="line">10     &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">11         window.addEventListener(&quot;message&quot;, function (event) &#123;</span><br><span class="line">12             console.log(&quot;A.html接收到消息：&quot; + event.data);</span><br><span class="line">13         &#125;);</span><br><span class="line">14 </span><br><span class="line">15         function sendMsg () &#123;</span><br><span class="line">16             var frameB = document.getElementById(&quot;frameB&quot;);</span><br><span class="line">17             frameB.contentWindow.postMessage(&quot;Hello I am Li Lei&quot;, &quot;*&quot;);</span><br><span class="line">18         &#125;</span><br><span class="line">19     &lt;/script&gt;</span><br><span class="line">20 &lt;/body&gt;</span><br><span class="line">21 &lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>B.html</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"> 1 &lt;!DOCTYPE html&gt;</span><br><span class="line"> 2 &lt;html&gt;</span><br><span class="line"> 3 &lt;head&gt;</span><br><span class="line"> 4     &lt;meta http-equiv=&quot;Content-Type&quot; content=&quot;text/html; charset=utf-8&quot; /&gt;</span><br><span class="line"> 5     &lt;title&gt;B&lt;/title&gt;</span><br><span class="line"> 6 &lt;/head&gt;</span><br><span class="line"> 7 &lt;body bgcolor=&quot;#ff0000&quot;&gt;</span><br><span class="line"> 8     &lt;p&gt;B&lt;/p&gt;</span><br><span class="line"> 9     &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">10         window.addEventListener(&quot;message&quot;, function (event) &#123;</span><br><span class="line">11             console.log(&quot;B.html接收到消息：&quot; + event.data);</span><br><span class="line">12             //向发送消息的window回送消息</span><br><span class="line">13             event.source.postMessage(&quot;Hi, I am Han Meimei!&quot;, &quot;*&quot;);</span><br><span class="line">14         &#125;);</span><br><span class="line">15     &lt;/script&gt;</span><br><span class="line">16 &lt;/body&gt;</span><br><span class="line">17 &lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>需要注意，window对象发送的消息只有自身可以接收到message消息。<br><b>crossOrigin属性</b></p>
-<p>服务端需要配置各种类型资源的跨域范围权限，如Apache服务器可以如下配置：<br>复制代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1 &lt;IfModule mod_setenvif.c&gt;</span><br><span class="line">2     &lt;IfModule mod_headers.c&gt;</span><br><span class="line">3     &lt;FilesMatch &quot;\.(cur|gif|ico|jpe?g|png|svgz?|webp)$&quot;&gt;</span><br><span class="line">4         SetEnvIf Origin &quot;:&quot; IS_CORS</span><br><span class="line">5         Header set Access-Control-Allow-Origin &quot;*&quot; env=IS_CORS</span><br><span class="line">6     &lt;/FilesMatch&gt;</span><br><span class="line">7     &lt;/IfModule&gt;</span><br><span class="line">8 &lt;/IfModule&gt;</span><br></pre></td></tr></table></figure>
-
-<p>Node.js如下配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> 1 app.all(&apos;*&apos;,function (req, res, next) &#123;</span><br><span class="line"> 2     res.header(&apos;Access-Control-Allow-Origin&apos;, &apos;*&apos;);</span><br><span class="line"> 3     res.header(&apos;Access-Control-Allow-Headers&apos;, &apos;Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild&apos;);</span><br><span class="line"> 4     res.header(&apos;Access-Control-Allow-Methods&apos;, &apos;PUT, POST, GET, DELETE, OPTIONS&apos;);</span><br><span class="line"> 5     if (req.method == &apos;OPTIONS&apos;) &#123;</span><br><span class="line"> 6         res.send(200); /让options请求快速返回/</span><br><span class="line"> 7     &#125; else &#123;</span><br><span class="line"> 8         next();</span><br><span class="line"> 9     &#125;</span><br><span class="line">10 &#125;);</span><br></pre></td></tr></table></figure>
-
-<p><b>crossOrigin属性的值</b></p>
-<p>该枚举属性指定在加载相关图片时是否必须使用CORS。</p>
-<pre><code>当不设置该属性时，资源将会不使用CORS加载（即不发送Origin:HTTP头），这将阻止其在元素中进行使用。若设置了非法的值，则视为使用anonymous。
-&quot;anonymous&quot;：会发起一个跨域请求（即包含Origin: HTTP头）。但不会发送任何认证信息（即不发送cookie, X.509证书和HTTP基本认证信息）。如果服务器没有给出源站凭证（不设置Access-Control-Allow-Origin: HTTP头），这张图片就会被污染并限制使用。
-&quot;use-credentials&quot;：会发起一个带有认证信息（发送cookie，X.509证书和HTTP基本认证信息）的跨域请求（即包含Origin:HTTP头）。如果服务器没有给出源站凭证（不设置Access-Control-Allow-Origin: HTTP头），这张图片就会被污染并限制使用。</code></pre><p><b>script标签</b></p>
-<p>当我们引入一个不同源的js代码时，不设置crossOrigin属性，在执行上是没有问题的，报错在console面板也可以看到堆栈信息，但是在当前页面使用window.onerror来抓取错误时，只能得到一个Script error的信息，没有更多的信息了。</p>
-<p>当我们为script标签添加crossorigin=”anonymous”属性后，如果服务端没有对跨域进行设置，会报如下错误：</p>
-<p>Access to Script at ‘<a href="http://127.0.0.1:3000/test.js&#39;" target="_blank" rel="noopener">http://127.0.0.1:3000/test.js&#39;</a> from origin ‘<a href="http://192.168.2.34&#39;" target="_blank" rel="noopener">http://192.168.2.34&#39;</a> has been blocked by CORS policy: No ‘Access-Control-Allow-Origin’ header is present on the requested resource. Origin ‘<a href="http://192.168.2.34&#39;" target="_blank" rel="noopener">http://192.168.2.34&#39;</a> is therefore not allowed access.</p>
-<p>服务端进行允许跨域设定后，window.onerror可以抓取到详细的信息了。<br><b>img标签</b></p>
-<p>我们在请求其它域下的图片时，可以显示出来，但是当调用toBlob()，toDataURL()和getImageData()等方法时会抛出安全错误，这是由于浏览器的安全策略导致的。</p>
-<p>我们先看看下面的代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"> 1 &lt;!DOCTYPE html&gt;</span><br><span class="line"> 2 &lt;html lang=&quot;en&quot;&gt;</span><br><span class="line"> 3 &lt;head&gt;</span><br><span class="line"> 4     &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line"> 5     &lt;title&gt;Title&lt;/title&gt;</span><br><span class="line"> 6 &lt;/head&gt;</span><br><span class="line"> 7 &lt;body&gt;</span><br><span class="line"> 8     &lt;canvas id=&apos;canvas&apos; width=&apos;500px&apos; height=&apos;500px&apos;&gt;&lt;/canvas&gt;</span><br><span class="line"> 9 </span><br><span class="line">10     &lt;script&gt;</span><br><span class="line">11         var image = document.createElement(&quot;img&quot;);</span><br><span class="line">12         // image.crossOrigin = &quot;anonymous&quot;;</span><br><span class="line">13         image.onload = function() &#123;</span><br><span class="line">14             drawImg(image);</span><br><span class="line">15         &#125;;</span><br><span class="line">16         image.onerror = function() &#123;</span><br><span class="line">17             console.log(&quot;load image error!&quot;);</span><br><span class="line">18         &#125;;</span><br><span class="line">19         image.src = &quot;http://127.0.0.1:3000/images/img.png&quot;;</span><br><span class="line">20 </span><br><span class="line">21         function drawImg(img) &#123;</span><br><span class="line">22             var canvas = document.getElementById(&apos;canvas&apos;);</span><br><span class="line">23             var context = canvas.getContext(&quot;2d&quot;);</span><br><span class="line">24             context.drawImage(img, 0, 0, 100, 100);</span><br><span class="line">25 </span><br><span class="line">26             var base64 = canvas.toDataURL(&apos;image/png&apos;);</span><br><span class="line">27             console.log(base64);</span><br><span class="line">28         &#125;</span><br><span class="line">29     &lt;/script&gt;</span><br><span class="line">30 &lt;/body&gt;</span><br><span class="line">31 &lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-<p>图片不在当前域，可以绘制到canvas里显示，但是调用toDataURL时会出现跨域的报错，解决方法就是去掉注释，为img标签添加crossOrigin=”anonymous”的属性。</p>
-<p>添加后，也需要服务端进行允许跨域设定才行哦，刷新后可以得到canvas中的图片编码信息，服务端不设定跨域会得到onerror的事件并且打印跨域异常信息。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/15/html5kuayu/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -970,7 +905,7 @@ origin：发送消息窗口的源（协议+主机+端口号）。</code></pre><p
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019 wyy
+    		&copy; 2020 wyy
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
