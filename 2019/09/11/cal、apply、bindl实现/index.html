@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>wyy的博客空间</title>
+  <title>call、bind、apply的手写实现 | wyy的博客空间</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="call、bind、apply的手写实现apply和call的区别就是传的参数形式不一样。call是一个一个的传，apply可以将参数以数组的形式传进去。而bind是传入第二个和后面的参数，且绑定this，返回一个转化后的函数。 考虑两点 （1） 第一个参数为undefined或null的时候，那么会转变为window（2） 改变了this执行，让新的对象可以执行该函数。  call 实现 123">
 <meta name="keywords" content="前端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="wyy的博客空间">
+<meta property="og:title" content="call、bind、apply的手写实现">
 <meta property="og:url" content="http://yoursite.com/2019/09/11/cal、apply、bindl实现/index.html">
 <meta property="og:site_name" content="wyy的博客空间">
 <meta property="og:description" content="call、bind、apply的手写实现apply和call的区别就是传的参数形式不一样。call是一个一个的传，apply可以将参数以数组的形式传进去。而bind是传入第二个和后面的参数，且绑定this，返回一个转化后的函数。 考虑两点 （1） 第一个参数为undefined或null的时候，那么会转变为window（2） 改变了this执行，让新的对象可以执行该函数。  call 实现 123">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-09-11T11:05:52.571Z">
+<meta property="og:updated_time" content="2020-01-21T13:07:00.717Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="wyy的博客空间">
+<meta name="twitter:title" content="call、bind、apply的手写实现">
 <meta name="twitter:description" content="call、bind、apply的手写实现apply和call的区别就是传的参数形式不一样。call是一个一个的传，apply可以将参数以数组的形式传进去。而bind是传入第二个和后面的参数，且绑定this，返回一个转化后的函数。 考虑两点 （1） 第一个参数为undefined或null的时候，那么会转变为window（2） 改变了this执行，让新的对象可以执行该函数。  call 实现 123">
   
     <link rel="alternative" href="/atom.xml" title="wyy的博客空间" type="application/atom+xml">
@@ -162,6 +162,21 @@
             <article id="post-cal、apply、bindl实现" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      call、bind、apply的手写实现
+    </h1>
+  
+
+        
+        <a href="/2019/09/11/cal、apply、bindl实现/" class="archive-article-date">
+  	<time datetime="2019-09-11T09:02:47.353Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-11</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="call、bind、apply的手写实现"><a href="#call、bind、apply的手写实现" class="headerlink" title="call、bind、apply的手写实现"></a>call、bind、apply的手写实现</h1><p>apply和call的区别就是传的参数形式不一样。call是一个一个的传，apply可以将参数以数组的形式传进去。而bind是传入第二个和后面的参数，且绑定this，返回一个转化后的函数。</p>
@@ -278,14 +293,14 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          用settimeout实现settimeinterval
         
       </div>
     </a>
   
   
     <a href="/2019/09/01/this、bind、apply、call/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">this/call/apply/bind</div>
       <i class="icon-circle-right"></i>
     </a>
   

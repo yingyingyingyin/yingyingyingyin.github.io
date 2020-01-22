@@ -6,12 +6,12 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>wyy的博客空间</title>
+  <title>事件冒泡、捕获 | wyy的博客空间</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="事件冒泡、捕获什么是冒泡与捕获   以click点击事件为例。假如我们有一个多层结构标签。如下图，是4个div嵌套。每个div都有点击的监听事件，分别输出1234。当我们点击最里面的div时，点击事件开始传递，传递前半部分，事件从最外面的父div依次传递到最里面的后代div，1-2-3-4这部分我们叫捕获过程。之后事件又从最里层的后代div逐层传出，4-3-2-1这部分我们叫冒泡过程。  如果我把">
 <meta name="keywords" content="前端">
 <meta property="og:type" content="article">
-<meta property="og:title" content="wyy的博客空间">
+<meta property="og:title" content="事件冒泡、捕获">
 <meta property="og:url" content="http://yoursite.com/2019/09/01/事件冒泡、捕获/index.html">
 <meta property="og:site_name" content="wyy的博客空间">
 <meta property="og:description" content="事件冒泡、捕获什么是冒泡与捕获   以click点击事件为例。假如我们有一个多层结构标签。如下图，是4个div嵌套。每个div都有点击的监听事件，分别输出1234。当我们点击最里面的div时，点击事件开始传递，传递前半部分，事件从最外面的父div依次传递到最里面的后代div，1-2-3-4这部分我们叫捕获过程。之后事件又从最里层的后代div逐层传出，4-3-2-1这部分我们叫冒泡过程。  如果我把">
@@ -22,9 +22,9 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/15214039-c9dbd228fe2182a9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/610">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/15214039-d2d57ee4dd5c5f85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/880">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/15214039-a92a51eb67d49dfe.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/609">
-<meta property="og:updated_time" content="2019-09-01T11:48:29.552Z">
+<meta property="og:updated_time" content="2020-01-21T13:13:43.396Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="wyy的博客空间">
+<meta name="twitter:title" content="事件冒泡、捕获">
 <meta name="twitter:description" content="事件冒泡、捕获什么是冒泡与捕获   以click点击事件为例。假如我们有一个多层结构标签。如下图，是4个div嵌套。每个div都有点击的监听事件，分别输出1234。当我们点击最里面的div时，点击事件开始传递，传递前半部分，事件从最外面的父div依次传递到最里面的后代div，1-2-3-4这部分我们叫捕获过程。之后事件又从最里层的后代div逐层传出，4-3-2-1这部分我们叫冒泡过程。  如果我把">
 <meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/15214039-8ae777372e2e8a84.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/916">
   
@@ -169,6 +169,21 @@
             <article id="post-事件冒泡、捕获" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      事件冒泡、捕获
+    </h1>
+  
+
+        
+        <a href="/2019/09/01/事件冒泡、捕获/" class="archive-article-date">
+  	<time datetime="2019-09-01T11:24:05.019Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-01</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="事件冒泡、捕获"><a href="#事件冒泡、捕获" class="headerlink" title="事件冒泡、捕获"></a>事件冒泡、捕获</h1><h4>什么是冒泡与捕获</h4>
@@ -288,14 +303,14 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          this/call/apply/bind
         
       </div>
     </a>
   
   
     <a href="/2019/08/21/let var let区别/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">var\let\const</div>
       <i class="icon-circle-right"></i>
     </a>
   
