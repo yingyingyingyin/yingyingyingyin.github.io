@@ -160,6 +160,99 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-变量提升" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/08/21/变量提升/">变量提升</a>
+    </h1>
+  
+
+        
+        <a href="/2019/08/21/变量提升/" class="archive-article-date">
+  	<time datetime="2019-08-21T11:41:55.128Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h1><p>js代码解析原则<br>首先js引擎在读取js代码时会进行两个步骤，第一个步骤是解释，第二个步骤是执行。<br>所谓解释就是会先通篇扫描所有的Js代码，然后把所有声明提升到顶端，第二步是执行，执行就是操作一类的。<br>例子1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line"></span><br><span class="line">    console.log(a);//输出结果 undefined</span><br><span class="line">    var a=10;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>以上代码输出 undefined<br>原因： 变量提升（把变量声明提升到当前执行环境的最顶端）<br>上段代码相当于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a; </span><br><span class="line">console.log(a);//由于未赋值 所以输出undefined </span><br><span class="line">a=10;</span><br></pre></td></tr></table></figure>
+
+<br>
+例2：
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo();</span><br><span class="line">function foo()&#123;</span><br><span class="line">    console.log(&quot;aaa&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果输出： aaa<br>原理：函数声明提升 （函数声明提升直接把整个函数提到执行环境的最顶端）<br>相当于：<br>    function foo(){<br>        console.log(“aaa”);<br>    }</p>
+<pre><code>foo();</code></pre><p>变量提升只提升函数名 而函数提升会提升整个函数题 注意：函数提升在变量提升上面。<br><br><br>例3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo();</span><br><span class="line">    var foo = function()&#123;</span><br><span class="line">        console.log(&quot;aaa&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行结果是： foo is not a function<br>原因： 还是进行了变量提升<br>相当于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">console.log(foo);  //undefined</span><br><span class="line">foo(); //foo is not a function</span><br><span class="line"> foo = function()&#123;</span><br><span class="line">        console.log(&quot;aaa&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面代码输出undefined 是因为变量提升后并没有赋值因此输出undefined<br>输出foo is not a function 原因是：js解析遇到 foo()时会默认当做函数来解析<br><br><br>例4：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">console.log(foo);</span><br><span class="line">    var foo=10;</span><br><span class="line">    console.log(foo);</span><br><span class="line">    function foo()&#123;</span><br><span class="line">        console.log(10);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(foo);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果：<br>原理：<br>相当于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function foo()&#123;</span><br><span class="line">        console.log(10);</span><br><span class="line">    &#125;</span><br><span class="line">var foo;</span><br><span class="line">console.log(foo);</span><br><span class="line">foo=10;</span><br><span class="line">console.log(foo);</span><br><span class="line">console.log(foo);</span><br></pre></td></tr></table></figure>
+
+<p>注意： 函数提升在变量提升上面，第一个console.log(foo);为什么会输出函数题呢，原因在于 var foo; 并未有赋值只是声明，因此他会调用上面的值<br>例如:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var b=10;</span><br><span class="line">b=10;</span><br><span class="line">console.log(b); //10 输出上一个值不会输出undefined</span><br></pre></td></tr></table></figure>
+
+<p>但是更改后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var b=10;</span><br><span class="line">b=20;</span><br><span class="line">console.log(b); //20 输出20不是上一个值</span><br></pre></td></tr></table></figure>
+
+<p>作者：朽木自雕也<br>链接：<a href="https://www.jianshu.com/p/d4b88723cd12" target="_blank" rel="noopener">https://www.jianshu.com/p/d4b88723cd12</a><br>来源：简书<br>简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/08/21/变量提升/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-html5kuayu" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

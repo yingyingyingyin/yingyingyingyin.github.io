@@ -160,6 +160,139 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-浏览器渲染原理及性能优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/15/浏览器渲染原理及性能优化/">浏览器渲染原理及性能优化</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/15/浏览器渲染原理及性能优化/" class="archive-article-date">
+  	<time datetime="2020-03-15T07:49:04.537Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>更好的理解浏览浏览器的渲染原理才能更好的进行从根源进行性能优化，下面就说一下浏览器拿到服务端的资源时渲染的过程</p>
+<h3 id="浏览器解析过程会触发的事件"><a href="#浏览器解析过程会触发的事件" class="headerlink" title="浏览器解析过程会触发的事件"></a>浏览器解析过程会触发的事件</h3><ul>
+<li><h6>readystatechange事件</h6>
+当readyState的属性值发生更改时，将触发该事件。
+
+</li>
+</ul>
+<p>readyState可以取以下值：</p>
+<p> loading：表示document仍在加载<br>interactive：文档已完成加载和解析，但子资源（如images,stylesheets and frames）仍在加载<br>complete文档和所有子资源已完成加载，load事件即将开始。</p>
+<ul>
+<li><h6>DOMContentLoaded事件</h6>
+当最初的HTML文档已被完全加载和分析时触发，而无需等待stylesheets，images、和subframes完成加载。
+
+</li>
+</ul>
+<p>DOM树渲染完成时触发DOMContentLoaded事件，此时可能外部资源还在加载。</p>
+<ul>
+<li><h6>load事件</h6>
+当资源及其依赖的资源已完成加载时触发。当页面完全加载后（包括所有的图像、JavaScript文件、css文件等外部资源）。
+
+</li>
+</ul>
+<p>load加载给定资源时将触发onload事件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">DOMContentLoaded事件触发时，仅当DOM加载完成，不包括样式表，图片等</span><br><span class="line">load事件触发时，页面上所有的DOM，样式表，脚本，图片都已加载完成</span><br></pre></td></tr></table></figure>
+
+<h5>!! 执行顺序</h5>
+
+<p>readystatechange， loading状态 -&gt; readystatechange， interactive状态 -&gt;DOMContentLoaded事件 -&gt; readystatechange， complete状态 -&gt; window.onload</p>
+<hr>
+<h3 id="浏览器渲染过程"><a href="#浏览器渲染过程" class="headerlink" title="浏览器渲染过程"></a>浏览器渲染过程</h3><h5>（一）HTML页面加载和解析流程 （例子）</h5>
+
+<ol>
+<li>用户输入网址（假设是个html页面，并且是第一次访问），浏览器向服务器发出请求，服务器返回html文件； </li>
+<li>浏览器开始载入html代码，发现＜head＞标签内有一个＜link＞标签引用外部CSS文件； </li>
+<li>浏览器又发出CSS文件的请求，服务器返回这个CSS文件； </li>
+<li>浏览器继续载入html中＜body＞部分的代码，并且CSS文件已经拿到手了，可以开始渲染页面了； </li>
+<li>浏览器在代码中发现一个＜img＞标签引用了一张图片，向服务器发出请求。此时浏览器不会等到图片下载完，而是继续渲染后面的代码； </li>
+<li>服务器返回图片文件，由于图片占用了一定面积，影响了后面段落的排布，因此浏览器需要回过头来重新渲染这部分代码； </li>
+<li>浏览器发现了一个包含一行Javascript代码的＜script＞标签，赶快运行它； </li>
+<li>Javascript脚本执行了这条语句，它命令浏览器隐藏掉代码中的某个＜div＞ （style.display=”none”）。突然少了这么一个元素，浏览器不得不重新渲染这部分代码； </li>
+<li>终于等到了＜/html＞的到来，浏览器泪流满面…… </li>
+<li>等等，还没完，用户点了一下界面中的“换肤”按钮，Javascript让浏览器换了一下＜link＞标签的CSS路径； </li>
+<li>浏览器召集了在座的各位＜div＞＜span＞＜ul＞＜li＞们，“大伙儿收拾收拾行李，咱得重新来过……”，浏览器向服务器请求了新的CSS文件，重新渲染页面。<h5>(二)浏览器渲染大概过程</h5>
+浏览器渲染的过程主要包括以下五步：
+</li>
+</ol>
+<ul>
+<li><p>浏览器将获取的HTML文档解析成DOM树。</p>
+</li>
+<li><p>处理CSS标记，构成层叠样式表模型CSSOM(CSS Object Model)。</p>
+</li>
+<li><p>将DOM和CSSOM合并为渲染树(rendering tree)将会被创建，代表一系列将被渲染的对象。</p>
+</li>
+<li><p>渲染树的每个元素包含的内容都是计算过的，它被称之为布局layout。浏览器使用一种流式处理的方法，只需要一次绘制操作就可以布局所有的元素。</p>
+</li>
+<li><p>将渲染树的各个节点绘制到屏幕上，这一步被称为绘制painting。<br><img src="https://upload-images.jianshu.io/upload_images/3534846-00ef9f3d405462ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="img"></p>
+<h5>(三)阻塞</h5>
+</li>
+<li><p>css阻塞<br><br>css是由单独的下载线程异步下载的。CSS不会阻塞DOM树的解析，但会阻塞Render的形成，也就是会阻塞也页面的渲染</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CSS阻塞渲染意味着，在CSSOM完备前，页面将一直处理白屏状态，这就是为什么样式放在head中，仅仅是为了更快的解析CSS，保证更快的首次渲染。</span><br><span class="line"></span><br><span class="line">需要注意的是，即便你没有给页面任何的样式声明，CSSOM依然会生成，默认生成的CSSOM自带浏览器默认样式。</span><br><span class="line"></span><br><span class="line">当解析HTML的时候，会把新来的元素插入DOM树里面，同时去查找CSS，然后把对应的样式规则应用到元素上，查找样式表是按照从右到左的顺序去匹配的。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>js阻塞<br><br>JS会阻塞Dom树的解析，也会阻塞CSS规则树的形成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">JS可以操作DOM来修改DOM结构，可以操作CSSOM来修改节点样式，这就导致了浏览器在遇到&lt;script&gt;标签时，DOM构建将暂停，直至脚本完成执行，然后继续构建DOM。如果脚本是外部的，会等待脚本下载完毕，再继续解析文档。现在可以在script标签上增加属性defer或者async。脚本解析会将脚本中改变DOM和CSS的地方分别解析出来，追加到DOM树和CSSOM规则树上。</span><br><span class="line"></span><br><span class="line">每次去执行JavaScript脚本都会严重地阻塞DOM树的构建，如果JavaScript脚本还操作了CSSOM，而正好这个CSSOM还没有下载和构建，浏览器甚至会延迟脚本执行和构建DOM，直至完成其CSSOM的下载和构建。所以，script标签的位置很重要。</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h5>(三)defer&async</h5>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1.&lt;script src=&quot;script.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">没有 defer 或 async，浏览器会立即加载并执行指定的脚本，“立即”指的是在渲染该 script 标签之下的文档元素之前，也就是说不等待后续载入的文档元素，读到就加载并执行。</span><br><span class="line"></span><br><span class="line">2.&lt;script async src=&quot;script.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">有 async，加载和渲染后续文档元素的过程将和 script.js 的加载与执行并行进行（异步）。</span><br><span class="line"></span><br><span class="line">3.&lt;script defer src=&quot;myscript.js&quot;&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">有 defer，加载后续文档元素的过程将和 script.js 的加载并行进行（异步），但是 script.js 的执行要在所有元素解析完成之后，DOMContentLoaded 事件触发之前完成。</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://image-static.segmentfault.com/28/4a/284aec5bb7f16b3ef4e7482110c5ddbb_articlex" alt="img"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/15/浏览器渲染原理及性能优化/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Node" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -927,99 +1060,6 @@ if(1){
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2019/08/21/let var let区别/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-变量提升" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/21/变量提升/">变量提升</a>
-    </h1>
-  
-
-        
-        <a href="/2019/08/21/变量提升/" class="archive-article-date">
-  	<time datetime="2019-08-21T11:41:55.128Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h1><p>js代码解析原则<br>首先js引擎在读取js代码时会进行两个步骤，第一个步骤是解释，第二个步骤是执行。<br>所谓解释就是会先通篇扫描所有的Js代码，然后把所有声明提升到顶端，第二步是执行，执行就是操作一类的。<br>例子1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line"></span><br><span class="line">    console.log(a);//输出结果 undefined</span><br><span class="line">    var a=10;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>以上代码输出 undefined<br>原因： 变量提升（把变量声明提升到当前执行环境的最顶端）<br>上段代码相当于：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a; </span><br><span class="line">console.log(a);//由于未赋值 所以输出undefined </span><br><span class="line">a=10;</span><br></pre></td></tr></table></figure>
-
-<br>
-例2：
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo();</span><br><span class="line">function foo()&#123;</span><br><span class="line">    console.log(&quot;aaa&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>结果输出： aaa<br>原理：函数声明提升 （函数声明提升直接把整个函数提到执行环境的最顶端）<br>相当于：<br>    function foo(){<br>        console.log(“aaa”);<br>    }</p>
-<pre><code>foo();</code></pre><p>变量提升只提升函数名 而函数提升会提升整个函数题 注意：函数提升在变量提升上面。<br><br><br>例3：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">foo();</span><br><span class="line">    var foo = function()&#123;</span><br><span class="line">        console.log(&quot;aaa&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>运行结果是： foo is not a function<br>原因： 还是进行了变量提升<br>相当于：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var foo;</span><br><span class="line">console.log(foo);  //undefined</span><br><span class="line">foo(); //foo is not a function</span><br><span class="line"> foo = function()&#123;</span><br><span class="line">        console.log(&quot;aaa&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码输出undefined 是因为变量提升后并没有赋值因此输出undefined<br>输出foo is not a function 原因是：js解析遇到 foo()时会默认当做函数来解析<br><br><br>例4：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">console.log(foo);</span><br><span class="line">    var foo=10;</span><br><span class="line">    console.log(foo);</span><br><span class="line">    function foo()&#123;</span><br><span class="line">        console.log(10);</span><br><span class="line">    &#125;</span><br><span class="line">    console.log(foo);</span><br></pre></td></tr></table></figure>
-
-<p>输出结果：<br>原理：<br>相当于：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function foo()&#123;</span><br><span class="line">        console.log(10);</span><br><span class="line">    &#125;</span><br><span class="line">var foo;</span><br><span class="line">console.log(foo);</span><br><span class="line">foo=10;</span><br><span class="line">console.log(foo);</span><br><span class="line">console.log(foo);</span><br></pre></td></tr></table></figure>
-
-<p>注意： 函数提升在变量提升上面，第一个console.log(foo);为什么会输出函数题呢，原因在于 var foo; 并未有赋值只是声明，因此他会调用上面的值<br>例如:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var b=10;</span><br><span class="line">b=10;</span><br><span class="line">console.log(b); //10 输出上一个值不会输出undefined</span><br></pre></td></tr></table></figure>
-
-<p>但是更改后：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var b=10;</span><br><span class="line">b=20;</span><br><span class="line">console.log(b); //20 输出20不是上一个值</span><br></pre></td></tr></table></figure>
-
-<p>作者：朽木自雕也<br>链接：<a href="https://www.jianshu.com/p/d4b88723cd12" target="_blank" rel="noopener">https://www.jianshu.com/p/d4b88723cd12</a><br>来源：简书<br>简书著作权归作者所有，任何形式的转载都请联系作者获得授权并注明出处。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/08/21/变量提升/">展开全文 >></a>
         </p>
       
 
